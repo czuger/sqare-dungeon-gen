@@ -1,7 +1,8 @@
 require_relative 'room'
+require_relative 'dungeon_walker'
 require_relative 'hallways/horizontal_hallway'
 require_relative 'hallways/vertical_hallway'
-require_relative 'dungeon_walker'
+require_relative 'hallways/hallways_list'
 require 'rmagick'
 
 class Dungeon
@@ -9,7 +10,7 @@ class Dungeon
   def initialize( dungeon_size, rooms_removal_coef = 0.3 )
     @dungeon_size = dungeon_size
     @rooms = {}
-    @hallways = []
+    @hallways = HallwaysList.new
     @rooms_removal_coef = rooms_removal_coef
 
     create_dungeon
@@ -18,23 +19,33 @@ class Dungeon
     delete_rooms
   end
 
-  def draw
+  def draw( output_file )
     width = height = ( @dungeon_size * Room::ROOM_SQUARE_SIZE +
         ( ( @dungeon_size-1 ) * Room::SQUARES_BETWEEN_ROOMS ) ) * Room::SQUARE_SIZE_IN_PIXELS +
         ( Room::ROOM_SQUARE_SIZE * Room::SQUARE_SIZE_IN_PIXELS )
 
-    canvas = Magick::Image.new( width, height )
+    create_gc( width, height )
+    @rooms.each_pair{ |_, r| r.draw( @gc ) }
+    @hallways.draw @gc
+    draw_gc( output_file )
+  end
 
-    gc = Magick::Draw.new
-    gc.stroke( 'darkslateblue' )
-    gc.fill( 'white' )
+  def extract_current_room( output_file, force_redraw = false )
+    width = height = ( Room::ROOM_SQUARE_SIZE + Room::SQUARES_BETWEEN_ROOMS * 2 ) * Room::SQUARE_SIZE_IN_PIXELS
 
-    @rooms.each_pair{ |_, r| r.draw( gc ) }
-    @hallways.each{ |h| h.draw( gc ) unless h.disabled }
+    create_gc( width, height )
+    tmp_room = @current_room.clone
+    tmp_room.decal_at_origin
+    tmp_room.draw( @gc )
 
-    gc.draw( canvas )
-    canvas.write( 'out/dungeon.jpg' )
-
+    tmp_room.connected_hallways.each do |h|
+      unless h.disabled
+        tmp_hallway = h.clone
+        tmp_hallway.replace_connected_room( tmp_room )
+        tmp_hallway.draw( @gc )
+      end
+    end
+    draw_gc( output_file )
   end
 
   private
@@ -42,6 +53,7 @@ class Dungeon
   def create_entry
     @entry = random_entry_room
     @entry.set_entry_room
+    @current_room = @entry
   end
 
   def create_dungeon
@@ -55,8 +67,8 @@ class Dungeon
   def connect_hallways
     1.upto(@dungeon_size) do |top|
       1.upto(@dungeon_size) do |left|
-        @hallways << HorizontalHallway.new( @rooms[ [ top, left ] ], @rooms[ [ top, left+1 ] ] ) unless left == @dungeon_size
-        @hallways << VerticalHallway.new( @rooms[ [ top, left ] ], @rooms[ [ top+1, left ] ] ) unless top == @dungeon_size
+        @hallways.connect_rooms( @rooms[ [ top, left ] ],@rooms[ [ top, left+1 ] ], HorizontalHallway.new ) unless left == @dungeon_size
+        @hallways.connect_rooms( @rooms[ [ top, left ] ],@rooms[ [ top+1, left ] ], VerticalHallway.new ) unless top == @dungeon_size
       end
     end
   end
@@ -79,7 +91,7 @@ class Dungeon
       dw = DungeonWalker.new( tmp_rooms, @dungeon_size, @entry )
       # If we can walk to all the rooms in the dungeon, then the room deletion is validated
       if dw.walk_rooms.count == tmp_rooms.count
-        @rooms[ to_delete_room_key ].disable_hallways
+        @rooms[ to_delete_room_key ].disable_hallways!
         @rooms.delete( to_delete_room_key )
       end
       # Otherwise we try with the next room
@@ -95,6 +107,19 @@ class Dungeon
 
   def random_entry_room
     external_rooms.sample
+  end
+
+  def create_gc( width, height )
+    @canvas = Magick::Image.new( width, height )
+
+    @gc = Magick::Draw.new
+    @gc.stroke( 'darkslateblue' )
+    @gc.fill( 'white' )
+  end
+
+  def draw_gc( output_file )
+    @gc.draw( @canvas )
+    @canvas.write( output_file )
   end
 
 end

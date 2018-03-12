@@ -1,16 +1,17 @@
 require_relative 'drawable_object'
+require_relative 'hallways/connected_hallways'
 
 class Room < DrawableObject
 
   SQUARES_BETWEEN_ROOMS = 4
   ROOM_SQUARE_SIZE = 8
 
-  attr_reader :top, :left, :entry_room
+  attr_reader :top, :left, :entry_room, :connected_hallways
 
   def initialize( top, left )
     @top = top
     @left = left
-    @connected_hallways = []
+    @connected_hallways = ConnectedHallways.new
   end
 
   def min_x
@@ -33,16 +34,17 @@ class Room < DrawableObject
     [ @top, @left ]
   end
 
-  def connect_hallways( hallways )
-    @connected_hallways << hallways
-  end
-
-  def disable_hallways
-    @connected_hallways.each{ |h| h.disable }
+  def disable_hallways!
+    @connected_hallways.disable_all!
   end
 
   def set_entry_room
     @entry_room = true
+  end
+
+  def decal_at_origin
+    @top = 1
+    @left = 1
   end
 
   def draw( gc )
