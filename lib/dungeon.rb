@@ -9,21 +9,27 @@ class Dungeon
     @dungeon_size = dungeon_size
     @rooms = {}
     @hallways = []
-    1.upto(dungeon_size) do |top|
-      1.upto(dungeon_size) do |left|
-        room = Room.new( top, left )
 
-        unless left == dungeon_size
-          h = HorizontalHallway.new( room )
-          @hallways << h
-        end
+    create_dungeon
+    connect_hallways
 
-        unless top == dungeon_size
-          h = VerticalHallway.new( room )
-          @hallways << h
-        end
+    @rooms[ [ 2, 2 ] ].disable_hallways
+    @rooms.delete( [ 2, 2 ] )
+  end
 
-        @rooms[ [ top, left ] ] = room
+  def create_dungeon
+    1.upto(@dungeon_size) do |top|
+      1.upto(@dungeon_size) do |left|
+        @rooms[ [ top, left ] ] = Room.new( top, left )
+      end
+    end
+  end
+
+  def connect_hallways
+    1.upto(@dungeon_size) do |top|
+      1.upto(@dungeon_size) do |left|
+        @hallways << HorizontalHallway.new( @rooms[ [ top, left ] ], @rooms[ [ top, left+1 ] ] ) unless left == @dungeon_size
+        @hallways << VerticalHallway.new( @rooms[ [ top, left ] ], @rooms[ [ top+1, left ] ] ) unless top == @dungeon_size
       end
     end
   end
@@ -40,7 +46,7 @@ class Dungeon
     gc.fill( 'white' )
 
     @rooms.each_pair{ |_, r| r.draw( gc ) }
-    @hallways.each{ |h| h.draw( gc ) }
+    @hallways.each{ |h| h.draw( gc ) unless h.disabled }
 
     gc.draw( canvas )
     canvas.write( 'out/dungeon.jpg' )

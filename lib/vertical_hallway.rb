@@ -1,12 +1,13 @@
-require_relative 'drawable_object'
+require_relative 'hallway'
 
-class VerticalHallway < DrawableObject
+class VerticalHallway < Hallway
 
   HALLWAY_HEIGHT=4
   HALLWAY_WIDTH=2
 
-  def initialize( top_connected_room )
+  def initialize( top_connected_room, bottom_connected_room )
     @top_connected_room = top_connected_room
+    connect_to_rooms( top_connected_room, bottom_connected_room )
   end
 
   def draw( gc )
@@ -27,7 +28,6 @@ class VerticalHallway < DrawableObject
     1.upto( HALLWAY_HEIGHT ).each do |t|
       gc.line( min_x, min_y + SQUARE_SIZE_IN_PIXELS*t, max_x, min_y + SQUARE_SIZE_IN_PIXELS*t )
     end
-
 
   end
 end

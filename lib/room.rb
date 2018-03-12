@@ -8,6 +8,7 @@ class Room < DrawableObject
   def initialize( top, left )
     @top = top
     @left = left
+    @connected_hallways = []
   end
 
   def min_x
@@ -24,6 +25,14 @@ class Room < DrawableObject
 
   def max_y
     min_y + ROOM_SQUARE_SIZE * SQUARE_SIZE_IN_PIXELS
+  end
+
+  def connect_hallways( hallways )
+    @connected_hallways << hallways
+  end
+
+  def disable_hallways
+    @connected_hallways.each{ |h| h.disable }
   end
 
   def draw( gc )

@@ -1,12 +1,13 @@
-require_relative 'drawable_object'
+require_relative 'hallway'
 
-class HorizontalHallway < DrawableObject
+class HorizontalHallway < Hallway
 
   HALLWAY_HEIGHT=2
   HALLWAY_WIDTH=4
 
-  def initialize( left_connected_room )
+  def initialize( left_connected_room, right_connected_room )
     @left_connected_room = left_connected_room
+    connect_to_rooms( left_connected_room, right_connected_room )
   end
 
   def draw( gc )
