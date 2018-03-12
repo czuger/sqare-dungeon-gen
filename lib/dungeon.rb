@@ -12,7 +12,7 @@ class Dungeon
 
     create_dungeon
     connect_hallways
-    delete_rooms
+    delete_rooms( 1.0/3 )
 
   end
 
@@ -33,10 +33,12 @@ class Dungeon
     end
   end
 
-  def delete_rooms
+  # Coef must be a number between 0 -> 1
+  # for example 1/3 mean that we will delete 1/3 of the rooms
+  def delete_rooms( coef )
     rooms = @rooms.values
     rooms.shuffle!
-    to_delete_rooms = rooms.shift( @dungeon_size-1 )
+    to_delete_rooms = rooms.shift( ((@dungeon_size**2)*coef).ceil )
 
     to_delete_rooms.each do |to_delete_room|
       @rooms[ to_delete_room.top_left_array ].disable_hallways
