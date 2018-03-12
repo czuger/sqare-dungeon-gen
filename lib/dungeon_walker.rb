@@ -1,18 +1,15 @@
 require 'set'
 
-module DungeonWalker
+class DungeonWalker
 
   WALKING_POSITIONS = [ [ -1, 0 ], [ 1, 0 ], [ 0, -1 ], [ 0, 1 ] ]
 
-  def external_rooms
-    @rooms.values.select{ |r| r.top == 1 || r.left == 1 || r.top == @dungeon_size || r.left == @dungeon_size }
+  def initialize( rooms, dungeon_size )
+    @rooms = rooms
+    @dungeon_size = dungeon_size
   end
 
-  def random_entry_room
-    external_rooms.first
-  end
-
-  def walk_rooms
+  def walk_rooms( rooms )
     walking_room_queue = [ random_entry_room.top_left_array ]
     walked_rooms_positions = Set.new
 
@@ -20,7 +17,7 @@ module DungeonWalker
       current_room_position = walking_room_queue.shift
       walked_rooms_positions << current_room_position
 
-      connected_rooms_positions = get_connected_rooms_positions( current_room_position )
+      connected_rooms_positions = get_connected_rooms_positions(  current_room_position )
       connected_rooms_positions.each do |room_position|
         # p room_position
         next if walked_rooms_positions.include?( room_position )
@@ -46,8 +43,16 @@ module DungeonWalker
       end
 
     end
-    p connected_positions
+    # p connected_positions
     connected_positions
+  end
+
+  def external_rooms
+    @rooms.values.select{ |r| r.top == 1 || r.left == 1 || r.top == @dungeon_size || r.left == @dungeon_size }
+  end
+
+  def random_entry_room
+    external_rooms.first
   end
 
 end

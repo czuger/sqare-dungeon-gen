@@ -6,8 +6,6 @@ require 'rmagick'
 
 class Dungeon
 
-  include DungeonWalker
-
   def initialize( dungeon_size )
     @dungeon_size = dungeon_size
     @rooms = {}
@@ -19,7 +17,7 @@ class Dungeon
 
     p @rooms.keys
 
-    p walk_rooms.count
+    # p DungeonWalker.walk_rooms( @rooms ).count
 
   end
 
@@ -43,13 +41,24 @@ class Dungeon
   # Coef must be a number between 0 -> 1
   # for example 1/3 mean that we will delete 1/3 of the rooms
   def delete_rooms( coef )
-    rooms = @rooms.values
-    rooms.shuffle!
-    to_delete_rooms = rooms.shift( ((@dungeon_size**2)*coef).ceil )
 
-    to_delete_rooms.each do |to_delete_room|
-      @rooms[ to_delete_room.top_left_array ].disable_hallways
-      @rooms.delete( to_delete_room.top_left_array )
+    to_delete_rooms_keys = @rooms.keys.shuffle
+    target_dungeon_size = @rooms.count - ((@dungeon_size**2)*coef).ceil
+
+    while @rooms.count > target_dungeon_size && !to_delete_rooms_keys.empty?
+
+      to_delete_room_key = to_delete_rooms_keys.shift
+      tmp_rooms = @rooms.clone
+      tmp_rooms.delete( to_delete_room_key )
+
+      dw = DungeonWalker.new( tmp_rooms, @dungeon_size )
+      # If we can walk to all the rooms in the dungeon, then the room deletion is validated
+      if dw.walk_rooms( tmp_rooms ).count == tmp_rooms.count
+        @rooms[ to_delete_room_key ].disable_hallways
+        @rooms.delete( to_delete_room_key )
+      end
+      # Otherwise we try with the next room
+
     end
   end
 
@@ -74,4 +83,4 @@ class Dungeon
 
 end
 
-Dungeon.new( 5 ).draw
+Dungeon.new( 7 ).draw

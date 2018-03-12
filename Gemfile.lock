@@ -2,12 +2,14 @@ GEM
   remote: https://rubygems.org/
   specs:
     rmagick (2.15.4)
+    ruby_deep_clone (0.8.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   rmagick
+  ruby_deep_clone
 
 BUNDLED WITH
    1.16.1
