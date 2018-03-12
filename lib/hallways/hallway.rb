@@ -4,6 +4,12 @@ class Hallway < DrawableObject
 
   attr_reader :disabled
 
+  attr_reader :rooms
+
+  def initialize
+    @rooms = {}
+  end
+
   def disable!
     @disabled = true
   end

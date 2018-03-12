@@ -5,11 +5,12 @@ class Room < DrawableObject
   SQUARES_BETWEEN_ROOMS = 4
   ROOM_SQUARE_SIZE = 8
 
-  attr_reader :top, :left, :entry_room, :min_x, :min_y, :max_x, :max_y
+  attr_reader :top, :left, :entry_room, :min_x, :min_y, :max_x, :max_y, :connected_hallways
 
   def initialize( top, left )
     @top = top
     @left = left
+    @connected_hallways = {}
   end
 
   def top_left_array
@@ -23,6 +24,10 @@ class Room < DrawableObject
   def decal_at_origin
     @top = 1
     @left = 1
+  end
+
+  def connect_hallway( direction, hallway )
+    @connected_hallways[ direction ] = hallway
   end
 
   def compute_coords

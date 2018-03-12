@@ -5,6 +5,24 @@ class HorizontalHallway < Hallway
   HALLWAY_HEIGHT=2
   HALLWAY_WIDTH=4
 
+  def set_input_room( room )
+    @rooms[ :left ] = room
+    room.connect_hallway( :left, self )
+  end
+
+  def set_output_room( room )
+    @rooms[ :right ] = room
+    room.connect_hallway( :right, self )
+  end
+
+  def connected_room( direction )
+    if direction == :left
+      return @rooms[:right]
+    else
+      return @rooms[:left]
+    end
+  end
+
   def draw( gc, base_room, x_decal = 0 )
     min_x = base_room.max_x - x_decal
     max_x = min_x + HALLWAY_WIDTH * SQUARE_SIZE_IN_PIXELS - x_decal

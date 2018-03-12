@@ -7,6 +7,8 @@ require 'rmagick'
 
 class Dungeon
 
+  attr_reader :current_room, :hallways
+
   def initialize( dungeon_size, rooms_removal_coef = 0.3 )
     @dungeon_size = dungeon_size
     @rooms = {}
