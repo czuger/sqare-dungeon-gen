@@ -27,6 +27,10 @@ class Room < DrawableObject
     min_y + ROOM_SQUARE_SIZE * SQUARE_SIZE_IN_PIXELS
   end
 
+  def top_left_array
+    [ @top, @left ]
+  end
+
   def connect_hallways( hallways )
     @connected_hallways << hallways
   end

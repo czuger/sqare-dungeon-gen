@@ -12,9 +12,8 @@ class Dungeon
 
     create_dungeon
     connect_hallways
+    delete_rooms
 
-    @rooms[ [ 2, 2 ] ].disable_hallways
-    @rooms.delete( [ 2, 2 ] )
   end
 
   def create_dungeon
@@ -31,6 +30,17 @@ class Dungeon
         @hallways << HorizontalHallway.new( @rooms[ [ top, left ] ], @rooms[ [ top, left+1 ] ] ) unless left == @dungeon_size
         @hallways << VerticalHallway.new( @rooms[ [ top, left ] ], @rooms[ [ top+1, left ] ] ) unless top == @dungeon_size
       end
+    end
+  end
+
+  def delete_rooms
+    rooms = @rooms.values
+    rooms.shuffle!
+    to_delete_rooms = rooms.shift( @dungeon_size-1 )
+
+    to_delete_rooms.each do |to_delete_room|
+      @rooms[ to_delete_room.top_left_array ].disable_hallways
+      @rooms.delete( to_delete_room.top_left_array )
     end
   end
 
@@ -55,4 +65,4 @@ class Dungeon
 
 end
 
-Dungeon.new( 3 ).draw
+Dungeon.new( 5 ).draw
