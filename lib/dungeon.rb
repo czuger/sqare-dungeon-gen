@@ -37,11 +37,10 @@ class Dungeon
     width = height = ( Room::ROOM_SQUARE_SIZE + Room::SQUARES_BETWEEN_ROOMS * 2 ) * Room::SQUARE_SIZE_IN_PIXELS
 
     create_gc( width, height )
-    tmp_room = @current_room.clone
-    tmp_room.decal_at_origin
-    tmp_room.draw( @gc )
+    @current_room.compute_coords_at_origin
+    @current_room.draw( @gc )
 
-    @hallways.origine_shifted_draw_from_given_room( @gc, @current_room )
+    @hallways.draw_hallways_connected_to_given_room_at_origin( @gc, @current_room )
 
     draw_gc( output_file )
   end

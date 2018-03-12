@@ -20,11 +20,11 @@ class VerticalHallway < Hallway
   end
 
   def draw_top_from_given_room( gc, room )
-    draw( gc, room )
+    draw( gc, room, ( HALLWAY_HEIGHT + Room::ROOM_SQUARE_SIZE ) * SQUARE_SIZE_IN_PIXELS )
   end
 
   def draw_bottom_from_given_room( gc, room )
-    draw( gc, room, ( HALLWAY_HEIGHT + Room::ROOM_SQUARE_SIZE ) * SQUARE_SIZE_IN_PIXELS )
+    draw( gc, room )
   end
 
 end

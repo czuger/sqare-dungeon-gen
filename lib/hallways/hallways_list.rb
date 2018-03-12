@@ -13,22 +13,24 @@ class HallwaysList
     @hallways.each_pair{ |_, h| h.draw_from_base_room( gc ) unless h.disabled }
   end
 
-  def origine_shifted_draw_from_given_room( gc, room )
+  def draw_hallways_connected_to_given_room_at_origin( gc, room )
     @hallways.each_pair do |rooms_keys, hallway|
+
+      # next if hallway.disabled
 
       if rooms_keys[0] == room.top_left_array
         if hallway.is_a?( HorizontalHallway )
-          hallway.origine_shifted_draw_right_from_given_room( gc, room )
+          hallway.draw_right_from_given_room( gc, room )
         else
-          hallway.origine_shifted_draw_bottom_from_given_room( gc, room )
+          hallway.draw_bottom_from_given_room( gc, room )
         end
       end
 
       if rooms_keys[1] == room.top_left_array
         if hallway.is_a?( HorizontalHallway )
-          hallway.origine_shifted_draw_left_from_given_room( gc, room )
+          hallway.draw_left_from_given_room( gc, room )
         else
-          hallway.origine_shifted_draw_top_from_given_room( gc, room )
+          hallway.draw_top_from_given_room( gc, room )
         end
       end
     end

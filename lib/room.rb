@@ -32,8 +32,11 @@ class Room < DrawableObject
     @max_y = @min_y + ROOM_SQUARE_SIZE * SQUARE_SIZE_IN_PIXELS
   end
 
-  def rebase_coords_at_origin
-
+  def compute_coords_at_origin
+    @min_x = SQUARES_BETWEEN_ROOMS * SQUARE_SIZE_IN_PIXELS
+    @max_x = @min_x + ROOM_SQUARE_SIZE * SQUARE_SIZE_IN_PIXELS
+    @min_y = SQUARES_BETWEEN_ROOMS * SQUARE_SIZE_IN_PIXELS
+    @max_y = @min_y + ROOM_SQUARE_SIZE * SQUARE_SIZE_IN_PIXELS
   end
 
   def draw( gc )
