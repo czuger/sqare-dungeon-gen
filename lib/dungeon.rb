@@ -13,12 +13,7 @@ class Dungeon
 
     create_dungeon
     connect_hallways
-    delete_rooms( 1.0/3 )
-
-    p @rooms.keys
-
-    # p DungeonWalker.walk_rooms( @rooms ).count
-
+    delete_rooms( 0.3 )
   end
 
   def create_dungeon
@@ -43,7 +38,9 @@ class Dungeon
   def delete_rooms( coef )
 
     to_delete_rooms_keys = @rooms.keys.shuffle
+    puts "Current dungeon size = #{@rooms.count}"
     target_dungeon_size = @rooms.count - ((@dungeon_size**2)*coef).ceil
+    puts "Target dungeon size = #{target_dungeon_size}"
 
     while @rooms.count > target_dungeon_size && !to_delete_rooms_keys.empty?
 
@@ -60,6 +57,8 @@ class Dungeon
       # Otherwise we try with the next room
 
     end
+
+    puts "Final dungeon size = #{@rooms.count}"
   end
 
   def draw
