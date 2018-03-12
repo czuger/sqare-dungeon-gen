@@ -5,7 +5,7 @@ class Room < DrawableObject
   SQUARES_BETWEEN_ROOMS = 4
   ROOM_SQUARE_SIZE = 8
 
-  attr_reader :top, :left
+  attr_reader :top, :left, :entry_room
 
   def initialize( top, left )
     @top = top
@@ -41,6 +41,10 @@ class Room < DrawableObject
     @connected_hallways.each{ |h| h.disable }
   end
 
+  def set_entry_room
+    @entry_room = true
+  end
+
   def draw( gc )
 
     gc.rectangle( min_x, min_y, max_x, max_y )
@@ -51,6 +55,22 @@ class Room < DrawableObject
       gc.line( min_x, min_y + SQUARE_SIZE_IN_PIXELS*t, max_x, min_y + SQUARE_SIZE_IN_PIXELS*t )
     end
 
+    if @entry_room
+      print_text( gc, 'E' )
+    end
+
+  end
+
+  private
+
+  def print_text( gc, text )
+    x = min_x + 3.3 * SQUARE_SIZE_IN_PIXELS
+    y = min_y + 4.7 * SQUARE_SIZE_IN_PIXELS
+    gc.pointsize( 200 )
+    gc.fill( 'black' )
+    # puts text.join( '' ).inspect
+    gc.text( x, y, text )
+    gc.fill( 'white' )
   end
 
 end

@@ -4,13 +4,14 @@ class DungeonWalker
 
   WALKING_POSITIONS = [ [ -1, 0 ], [ 1, 0 ], [ 0, -1 ], [ 0, 1 ] ]
 
-  def initialize( rooms, dungeon_size )
+  def initialize( rooms, dungeon_size, entry_room )
     @rooms = rooms
     @dungeon_size = dungeon_size
+    @entry_room = entry_room
   end
 
-  def walk_rooms( rooms )
-    walking_room_queue = [ random_entry_room.top_left_array ]
+  def walk_rooms()
+    walking_room_queue = [ @entry_room.top_left_array ]
     walked_rooms_positions = Set.new
 
     until walking_room_queue.empty?
@@ -45,14 +46,6 @@ class DungeonWalker
     end
     # p connected_positions
     connected_positions
-  end
-
-  def external_rooms
-    @rooms.values.select{ |r| r.top == 1 || r.left == 1 || r.top == @dungeon_size || r.left == @dungeon_size }
-  end
-
-  def random_entry_room
-    external_rooms.first
   end
 
 end
