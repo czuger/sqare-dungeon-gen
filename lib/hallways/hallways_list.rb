@@ -13,4 +13,12 @@ class HallwaysList
     @hallways.each_pair{ |_, h| h.draw( gc ) unless h.disabled }
   end
 
+  def disable_hallways!( room_key )
+    @hallways.each_pair do |rooms_keys, hallway|
+      if rooms_keys[0] == room_key || rooms_keys[1] == room_key
+        hallway.disable!
+      end
+    end
+  end
+
 end

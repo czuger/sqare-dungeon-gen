@@ -30,23 +30,23 @@ class Dungeon
     draw_gc( output_file )
   end
 
-  def extract_current_room( output_file, force_redraw = false )
-    width = height = ( Room::ROOM_SQUARE_SIZE + Room::SQUARES_BETWEEN_ROOMS * 2 ) * Room::SQUARE_SIZE_IN_PIXELS
-
-    create_gc( width, height )
-    tmp_room = @current_room.clone
-    tmp_room.decal_at_origin
-    tmp_room.draw( @gc )
-
-    tmp_room.connected_hallways.each do |h|
-      unless h.disabled
-        tmp_hallway = h.clone
-        tmp_hallway.replace_connected_room( tmp_room )
-        tmp_hallway.draw( @gc )
-      end
-    end
-    draw_gc( output_file )
-  end
+  # def extract_current_room( output_file, force_redraw = false )
+  #   width = height = ( Room::ROOM_SQUARE_SIZE + Room::SQUARES_BETWEEN_ROOMS * 2 ) * Room::SQUARE_SIZE_IN_PIXELS
+  #
+  #   create_gc( width, height )
+  #   tmp_room = @current_room.clone
+  #   tmp_room.decal_at_origin
+  #   tmp_room.draw( @gc )
+  #
+  #   tmp_room.connected_hallways.each do |h|
+  #     unless h.disabled
+  #       tmp_hallway = h.clone
+  #       tmp_hallway.replace_connected_room( tmp_room )
+  #       tmp_hallway.draw( @gc )
+  #     end
+  #   end
+  #   draw_gc( output_file )
+  # end
 
   private
 
@@ -91,7 +91,7 @@ class Dungeon
       dw = DungeonWalker.new( tmp_rooms, @dungeon_size, @entry )
       # If we can walk to all the rooms in the dungeon, then the room deletion is validated
       if dw.walk_rooms.count == tmp_rooms.count
-        @rooms[ to_delete_room_key ].disable_hallways!
+        @hallways.disable_hallways!( to_delete_room_key )
         @rooms.delete( to_delete_room_key )
       end
       # Otherwise we try with the next room

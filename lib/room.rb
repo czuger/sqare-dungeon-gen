@@ -1,17 +1,15 @@
 require_relative 'drawable_object'
-require_relative 'hallways/connected_hallways'
 
 class Room < DrawableObject
 
   SQUARES_BETWEEN_ROOMS = 4
   ROOM_SQUARE_SIZE = 8
 
-  attr_reader :top, :left, :entry_room, :connected_hallways
+  attr_reader :top, :left, :entry_room
 
   def initialize( top, left )
     @top = top
     @left = left
-    @connected_hallways = ConnectedHallways.new
   end
 
   def min_x
@@ -32,10 +30,6 @@ class Room < DrawableObject
 
   def top_left_array
     [ @top, @left ]
-  end
-
-  def disable_hallways!
-    @connected_hallways.disable_all!
   end
 
   def set_entry_room
