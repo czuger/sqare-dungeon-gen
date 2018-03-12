@@ -5,6 +5,8 @@ class Room < DrawableObject
   SQUARES_BETWEEN_ROOMS = 4
   ROOM_SQUARE_SIZE = 8
 
+  attr_reader :top, :left
+
   def initialize( top, left )
     @top = top
     @left = left

@@ -1,9 +1,12 @@
 require_relative 'room'
 require_relative 'horizontal_hallway'
 require_relative 'vertical_hallway'
+require_relative 'dungeon_walker'
 require 'rmagick'
 
 class Dungeon
+
+  include DungeonWalker
 
   def initialize( dungeon_size )
     @dungeon_size = dungeon_size
@@ -13,6 +16,10 @@ class Dungeon
     create_dungeon
     connect_hallways
     delete_rooms( 1.0/3 )
+
+    p @rooms.keys
+
+    p walk_rooms.count
 
   end
 
