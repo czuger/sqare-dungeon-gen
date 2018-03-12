@@ -15,7 +15,6 @@ class Hallway < DrawableObject
   private
 
   def draw( gc, width, height, min_x, max_x, min_y, max_y )
-
     gc.rectangle( min_x, min_y, max_x, max_y )
 
     # Squares
@@ -26,7 +25,6 @@ class Hallway < DrawableObject
     1.upto( height ).each do |t|
       gc.line( min_x, min_y + SQUARE_SIZE_IN_PIXELS*t, max_x, min_y + SQUARE_SIZE_IN_PIXELS*t )
     end
-
   end
 
 end

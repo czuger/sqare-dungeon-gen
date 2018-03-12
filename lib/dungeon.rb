@@ -26,11 +26,11 @@ class Dungeon
 
     create_gc( width, height )
     @rooms.each_pair{ |_, r| r.draw( @gc ) }
-    @hallways.draw @gc
+    @hallways.draw_from_base_room @gc
     draw_gc( output_file )
   end
 
-  # def extract_current_room( output_file, force_redraw = false )
+  # def draw_current_room( output_file )
   #   width = height = ( Room::ROOM_SQUARE_SIZE + Room::SQUARES_BETWEEN_ROOMS * 2 ) * Room::SQUARE_SIZE_IN_PIXELS
   #
   #   create_gc( width, height )

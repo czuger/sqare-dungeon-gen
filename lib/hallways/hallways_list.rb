@@ -9,8 +9,8 @@ class HallwaysList
     hallway.set_draw_base_room( r1 )
   end
 
-  def draw( gc )
-    @hallways.each_pair{ |_, h| h.draw( gc ) unless h.disabled }
+  def draw_from_base_room( gc )
+    @hallways.each_pair{ |_, h| h.draw_from_base_room( gc ) unless h.disabled }
   end
 
   def disable_hallways!( room_key )
@@ -20,5 +20,4 @@ class HallwaysList
       end
     end
   end
-
 end
