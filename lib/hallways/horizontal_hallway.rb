@@ -12,7 +12,7 @@ class HorizontalHallway < Hallway
     min_y = base_room.min_y + ( Room::ROOM_SQUARE_SIZE/2-1 ) * SQUARE_SIZE_IN_PIXELS
     max_y = min_y + HALLWAY_HEIGHT * SQUARE_SIZE_IN_PIXELS
 
-    super( gc, HALLWAY_WIDTH, HALLWAY_HEIGHT, min_x, max_x, min_y, max_y )
+    super( gc, HALLWAY_WIDTH, HALLWAY_HEIGHT, min_x, max_x, min_y, max_y, x_decal: x_decal/2 )
   end
 
   def draw_from_base_room( gc )
@@ -24,7 +24,7 @@ class HorizontalHallway < Hallway
   end
 
   def draw_left_from_given_room( gc, room )
-    draw( gc, room, ( HALLWAY_WIDTH + Room::ROOM_SQUARE_SIZE ) * SQUARE_SIZE_IN_PIXELS )
+    draw( gc, room, ( Room::ROOM_SQUARE_SIZE ) * SQUARE_SIZE_IN_PIXELS )
   end
 
 end

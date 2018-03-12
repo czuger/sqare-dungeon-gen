@@ -12,7 +12,7 @@ class VerticalHallway < Hallway
     min_y = base_room.max_y - y_decal
     max_y = min_y + HALLWAY_HEIGHT * SQUARE_SIZE_IN_PIXELS - y_decal
 
-    super( gc, HALLWAY_WIDTH, HALLWAY_HEIGHT, min_x, max_x, min_y, max_y )
+    super( gc, HALLWAY_WIDTH, HALLWAY_HEIGHT, min_x, max_x, min_y, max_y, y_decal: y_decal/2 )
   end
 
   def draw_from_base_room( gc )
@@ -20,7 +20,8 @@ class VerticalHallway < Hallway
   end
 
   def draw_top_from_given_room( gc, room )
-    draw( gc, room, ( HALLWAY_HEIGHT + Room::ROOM_SQUARE_SIZE ) * SQUARE_SIZE_IN_PIXELS )
+    # Le problème vient du decal. Si je supprime HALLWAY_HEIGHT, j'ai les lignes horizontales et pas les verticales.
+    draw( gc, room, ( Room::ROOM_SQUARE_SIZE ) * SQUARE_SIZE_IN_PIXELS )
   end
 
   def draw_bottom_from_given_room( gc, room )

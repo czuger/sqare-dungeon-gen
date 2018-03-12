@@ -16,7 +16,7 @@ class HallwaysList
   def draw_hallways_connected_to_given_room_at_origin( gc, room )
     @hallways.each_pair do |rooms_keys, hallway|
 
-      # next if hallway.disabled
+      next if hallway.disabled
 
       if rooms_keys[0] == room.top_left_array
         if hallway.is_a?( HorizontalHallway )
