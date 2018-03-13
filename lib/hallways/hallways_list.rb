@@ -8,8 +8,6 @@ class HallwaysList
     @hallways[ [ r1.top_left_array, r2.top_left_array ] ] = hallway
     hallway.hallway_id = [ r1.top_left_array, r2.top_left_array ]
     hallway.set_draw_base_room( r1 )
-    hallway.set_input_room( r1 )
-    hallway.set_output_room( r2 )
   end
 
   def connected_hallways( room )
@@ -30,14 +28,10 @@ class HallwaysList
   end
 
   def draw_hallways_connected_to_given_room_at_origin( gc, room )
-    @hallways.each_pair do |rooms_keys, hallway|
-
-      next if hallway.disabled
-
-      hallway.draw_in_from_given_room( gc, room ) if rooms_keys[0] == room.top_left_array
-      hallway.draw_out_from_given_room( gc, room ) if rooms_keys[1] == room.top_left_array
+    connections = connected_hallways( room )
+    connections.each do |direction, hallway|
+      hallway.draw_from_given_room( gc, room, direction )
     end
-
   end
 
   def disable_hallways!( room_key )
