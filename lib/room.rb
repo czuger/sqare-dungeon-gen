@@ -6,6 +6,7 @@ class Room < DrawableObject
   ROOM_SQUARE_SIZE = 8
 
   attr_reader :top, :left, :entry_room, :min_x, :min_y, :max_x, :max_y, :connected_hallways
+  attr_accessor :room_id
 
   def initialize( top, left )
     @top = top
@@ -57,6 +58,10 @@ class Room < DrawableObject
       print_text( gc, 'E' )
     end
 
+  end
+
+  def to_hash
+    { room_id: @room_id, connected_hallways: @connected_hallways.map{ |k, h| { k => h.to_hash } } }
   end
 
   private

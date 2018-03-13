@@ -23,6 +23,13 @@ class VerticalHallway < Hallway
     end
   end
 
+  def in_room_connection
+    :bottom
+  end
+
+  def out_room_connection
+    :top
+  end
 
   def draw( gc, base_room, y_decal = 0 )
     min_x = base_room.min_x + ( Room::ROOM_SQUARE_SIZE/2-1 ) * SQUARE_SIZE_IN_PIXELS
@@ -38,13 +45,13 @@ class VerticalHallway < Hallway
     draw( gc, @draw_base_room )
   end
 
-  def draw_top_from_given_room( gc, room )
-    # Le problème vient du decal. Si je supprime HALLWAY_HEIGHT, j'ai les lignes horizontales et pas les verticales.
-    draw( gc, room, ( Room::ROOM_SQUARE_SIZE ) * SQUARE_SIZE_IN_PIXELS )
+  def draw_out_from_given_room( gc, room )
+    draw( gc, room )
   end
 
-  def draw_bottom_from_given_room( gc, room )
-    draw( gc, room )
+  def draw_in_from_given_room( gc, room )
+    # Le problème vient du decal. Si je supprime HALLWAY_HEIGHT, j'ai les lignes horizontales et pas les verticales.
+    draw( gc, room, ( Room::ROOM_SQUARE_SIZE ) * SQUARE_SIZE_IN_PIXELS )
   end
 
 end

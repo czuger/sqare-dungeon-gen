@@ -17,21 +17,9 @@ class HallwaysList
 
       next if hallway.disabled
 
-      if rooms_keys[0] == room.top_left_array
-        if hallway.is_a?( HorizontalHallway )
-          directions << :right
-        else
-          directions << :bottom
-        end
-      end
+      directions << hallway.in_room_connection if rooms_keys[0] == room.top_left_array
+      directions << hallway.out_room_connection if rooms_keys[1] == room.top_left_array
 
-      if rooms_keys[1] == room.top_left_array
-        if hallway.is_a?( HorizontalHallway )
-          directions << :left
-        else
-          directions << :top
-        end
-      end
     end
     directions
   end
@@ -45,21 +33,8 @@ class HallwaysList
 
       next if hallway.disabled
 
-      if rooms_keys[0] == room.top_left_array
-        if hallway.is_a?( HorizontalHallway )
-          hallway.draw_right_from_given_room( gc, room )
-        else
-          hallway.draw_bottom_from_given_room( gc, room )
-        end
-      end
-
-      if rooms_keys[1] == room.top_left_array
-        if hallway.is_a?( HorizontalHallway )
-          hallway.draw_left_from_given_room( gc, room )
-        else
-          hallway.draw_top_from_given_room( gc, room )
-        end
-      end
+      hallway.draw_in_from_given_room( gc, room ) if rooms_keys[1] == room.top_left_array
+      hallway.draw_out_from_given_room( gc, room ) if rooms_keys[0] == room.top_left_array
     end
 
   end

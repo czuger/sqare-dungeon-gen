@@ -2,12 +2,13 @@ require_relative '../drawable_object'
 
 class Hallway < DrawableObject
 
-  attr_reader :disabled
-
-  attr_reader :rooms
+  attr_reader :disabled, :rooms, :hallway_id
+  @@hallway_id = 0
 
   def initialize
     @rooms = {}
+    @hallway_id = @@hallway_id
+    @@hallway_id += 1
   end
 
   def disable!
@@ -16,6 +17,10 @@ class Hallway < DrawableObject
 
   def set_draw_base_room( draw_base_room )
     @draw_base_room = draw_base_room
+  end
+
+  def to_hash
+    { hallway_id: @hallway_id, klass: self.class, rooms: @rooms.map{ |k, r| { k => r.room_id } }, draw_base_room: @draw_base_room.room_id }
   end
 
   private

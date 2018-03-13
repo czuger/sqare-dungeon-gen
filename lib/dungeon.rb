@@ -4,6 +4,7 @@ require_relative 'hallways/horizontal_hallway'
 require_relative 'hallways/vertical_hallway'
 require_relative 'hallways/hallways_list'
 require 'rmagick'
+require 'pp'
 
 class Dungeon
 
@@ -47,6 +48,16 @@ class Dungeon
     draw_gc( output_file )
   end
 
+  def print_dungeon
+    rooms = {}
+    @rooms.each do |_, v|
+      rooms[ v.room_id ] = v.to_hash
+    end
+    File.open('out/dungeon.txt','w') do |f|
+      PP.pp(rooms,f)
+    end
+  end
+
   private
 
   def create_entry
@@ -59,6 +70,7 @@ class Dungeon
     1.upto(@dungeon_size) do |top|
       1.upto(@dungeon_size) do |left|
         @rooms[ [ top, left ] ] = Room.new( top, left )
+        @rooms[ [ top, left ] ].room_id = [ top, left ]
       end
     end
   end
