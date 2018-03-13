@@ -67,10 +67,19 @@ class Room < DrawableObject
       connected_hallways: hallways.connected_hallways( self ).map{ |k, h| { k => h.to_hash } } }
   end
 
-  def to_json( hallways )
+  def to_json_hash( hallways )
     h = to_hash( hallways )
     h.delete(:connected_hallways)
-    h.to_json
+    h
+  end
+
+  def from_json( room_data )
+    @room_id = room_data['room_id']
+    @entry_room = room_data['entry_room']
+    @content = room_data['content']
+    @top = room_data['top'].to_i
+    @left = room_data['left'].to_i
+    self
   end
 
   private

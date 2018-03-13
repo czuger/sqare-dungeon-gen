@@ -21,7 +21,9 @@ class Dungeon
     @rooms = {}
     @hallways = HallwaysList.new
     @rooms_removal_coef = rooms_removal_coef
+  end
 
+  def generate_dungeon
     create_dungeon
     create_entry
     connect_hallways
@@ -43,10 +45,23 @@ class Dungeon
         dungeon_size: @dungeon_size,
         rooms_removal_coef: @rooms_removal_coef,
         entry_room_id: @entry.room_id,
-        current_room: @current_room.room_id,
-        rooms: @rooms.values.map{ |r| r.to_json( @hallways ) },
-        hallways: @hallways.to_json
-    }
+        current_room_id: @current_room.room_id,
+        rooms: @rooms.values.map{ |r| r.to_json_hash( @hallways ) },
+        hallways: @hallways.to_hash
+    }.to_json
+  end
+
+  def from_json( json_string )
+    data = JSON.parse( json_string )
+    # pp data
+    @dungeon_size = data['dungeon_size']
+    @rooms_removal_coef = data['rooms_removal_coef']
+
+    @rooms = Hash[ data['rooms'].map{ |dr| [ dr['room_id'], Room.new( dr['top'], dr['left'] ).from_json( dr ) ] } ]
+    @hallways.from_json(data['hallways'], @rooms)
+
+    @entry = @rooms[data['entry_room_id']]
+    @current_room = @rooms[data['current_room_id']]
   end
 
 end

@@ -17,10 +17,6 @@ class Hallway < DrawableObject
     { hallway_id: @hallway_id, klass: self.class, disabled: @disabled, draw_base_room: @draw_base_room.room_id }
   end
 
-  def to_json
-    to_hash.to_json
-  end
-
   private
 
   def draw( gc, width, height, min_x, max_x, min_y, max_y, x_decal: 0, y_decal: 0 )

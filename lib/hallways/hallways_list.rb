@@ -48,8 +48,22 @@ class HallwaysList
     end
   end
 
-  def to_json
-    @hallways.values.map{ |v| v.to_json }
+  def to_hash
+    @hallways.values.map{ |v| v.to_hash }
+  end
+
+  def from_json( data, rooms )
+    data.each do |hallway_data|
+      # pp hallway_data
+      r1 = rooms[hallway_data['hallway_id'][0]]
+      r2 = rooms[hallway_data['hallway_id'][1]]
+      if r1 && r2
+        hallway = Object.const_get(hallway_data['klass']).new
+        hallway.disable! if hallway_data['disabled']
+        hallway.set_draw_base_room(r1)
+        connect_rooms( r1, r2, hallway )
+      end
+    end
   end
 
 end

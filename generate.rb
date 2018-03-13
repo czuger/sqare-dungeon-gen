@@ -8,6 +8,7 @@ puts "Dungeon seed = #{seed}"
 srand( seed )
 
 d = Dungeon.new( 5 )
+d.generate_dungeon
 
 d.print_dungeon
 d.draw( 'out/dungeon.jpg' )
@@ -18,4 +19,5 @@ d.draw_current_room( 'out/room.jpg'  )
 
 p d.available_directions
 
-pp d.to_json
+j = d.to_json
+d.from_json(j )
