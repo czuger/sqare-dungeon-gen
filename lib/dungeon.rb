@@ -63,6 +63,10 @@ class Dungeon
     @current_room = @rooms[ room_id ]
   end
 
+  def available_directions
+    @hallways.directions( @current_room )
+  end
+
   private
 
   def create_entry
