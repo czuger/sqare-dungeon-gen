@@ -58,9 +58,9 @@ class Dungeon
     end
   end
 
-  def get_next_room( direction )
+  def set_next_room( direction )
     room_id = @hallways.get_room_id_from_direction( @current_room, direction )
-    @rooms[ room_id ]
+    @current_room = @rooms[ room_id ]
   end
 
   private

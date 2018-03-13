@@ -11,15 +11,14 @@ class Walker
   def main_loop
     loop do
       _directions = directions
-
       p _directions
 
       direction = gets.chomp
-      p direction
       direction = _directions[direction]
       p direction
 
-      p @dungeon.get_next_room( :left )
+      p @dungeon.set_next_room( direction )
+      @dungeon.draw_current_room( 'out/room.jpg'  )
 
     end
   end
