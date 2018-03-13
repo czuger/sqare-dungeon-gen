@@ -88,7 +88,7 @@ class Dungeon
   end
 
   def distance_between_rooms_ids( r_id_1, r_id_2 )
-    Math.sqrt( (r_id_1[0] + r_id_2[0])**2  + (r_id_1[1] + r_id_2[1])**2  ).round
+    Math.sqrt( (r_id_1[0] - r_id_2[0])**2  + (r_id_1[1] - r_id_2[1])**2  ).ceil
   end
 
   def create_dungeon
