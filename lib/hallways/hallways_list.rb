@@ -26,7 +26,7 @@ class HallwaysList
   end
 
   def directions( room )
-    connected_hallways(room).keys
+    connected_hallways(room).keys.sort
   end
 
   def draw_from_base_room( gc )

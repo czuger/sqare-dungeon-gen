@@ -20,4 +20,4 @@ d.draw_current_room( 'out/room.jpg'  )
 p d.available_directions
 
 j = d.to_json
-d.from_json(j )
+Dungeon.from_json(j )

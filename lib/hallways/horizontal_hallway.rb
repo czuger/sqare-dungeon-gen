@@ -16,7 +16,7 @@ class HorizontalHallway < Hallway
     if direction == :right
       @hallway_id[1]
     else
-      @hallway_id[1]
+      @hallway_id[0]
     end
   end
 

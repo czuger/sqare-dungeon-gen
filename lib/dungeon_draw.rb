@@ -26,12 +26,12 @@ module DungeonDraw
     draw_gc( output_file )
   end
 
-  def print_dungeon
+  def print_dungeon( output_file )
     rooms = {}
     @rooms.each do |_, v|
       rooms[ v.room_id ] = v.to_hash( hallways )
     end
-    File.open('out/dungeon.txt','w') do |f|
+    File.open(output_file,'w') do |f|
       PP.pp(rooms,f)
     end
   end
