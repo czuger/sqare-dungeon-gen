@@ -33,6 +33,7 @@ class Dungeon
   end
 
   def to_json
+    assert_dungeon_generated
     {
         dungeon_size: @dungeon_size,
         rooms_removal_coef: @rooms_removal_coef,
@@ -51,7 +52,7 @@ class Dungeon
   end
 
   def from_json( data )
-    raise 'You mest parse the json string before calling this method' if data.is_a? String
+    raise 'You must parse the json string before calling this method' if data.is_a? String
     @dungeon_size = data['dungeon_size']
     @rooms_removal_coef = data['rooms_removal_coef']
     @rooms = Hash[ data['rooms'].map{ |dr| [ dr['room_id'], Room.new( dr['top'], dr['left'] ).from_json( dr ) ] } ]

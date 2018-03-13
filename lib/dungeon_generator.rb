@@ -7,9 +7,14 @@ module DungeonGenerator
     connect_hallways
     delete_rooms
     generate_treasure
+    @dungeon_generated = true
   end
 
   private
+
+  def assert_dungeon_generated
+    raise "Dungeon hasn't been generated" unless @dungeon_generated
+  end
 
   def generate_treasure
     rooms_distances = { }

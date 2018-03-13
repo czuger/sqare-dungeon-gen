@@ -1,4 +1,4 @@
-require_relative 'lib/dungeon'
+require_relative 'lib/ib/dungeon'
 require_relative 'lib/walker'
 
 s_seed = nil

@@ -15,6 +15,7 @@ module DungeonDraw
   end
 
   def draw_current_room( output_file )
+    assert_dungeon_generated
     width = height = ( Room::ROOM_SQUARE_SIZE + Room::SQUARES_BETWEEN_ROOMS * 2 ) * Room::SQUARE_SIZE_IN_PIXELS
 
     create_gc( width, height )
