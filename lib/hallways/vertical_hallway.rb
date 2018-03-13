@@ -28,14 +28,6 @@ class VerticalHallway < Hallway
     end
   end
 
-  def in_room_connection
-    :bottom
-  end
-
-  def out_room_connection
-    :top
-  end
-
   def draw( gc, base_room, y_decal = 0 )
     min_x = base_room.min_x + ( Room::ROOM_SQUARE_SIZE/2-1 ) * SQUARE_SIZE_IN_PIXELS
     max_x = min_x + HALLWAY_WIDTH * SQUARE_SIZE_IN_PIXELS

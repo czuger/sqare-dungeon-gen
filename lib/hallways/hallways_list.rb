@@ -22,16 +22,7 @@ class HallwaysList
   end
 
   def directions( room )
-    directions = []
-    @hallways.each_pair do |rooms_keys, hallway|
-
-      next if hallway.disabled
-
-      directions << hallway.in_room_connection if rooms_keys[0] == room.top_left_array
-      directions << hallway.out_room_connection if rooms_keys[1] == room.top_left_array
-
-    end
-    directions
+    connected_hallways(room).keys
   end
 
   def draw_from_base_room( gc )

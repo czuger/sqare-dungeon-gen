@@ -28,14 +28,6 @@ class HorizontalHallway < Hallway
     end
   end
 
-  def in_room_connection
-    :right
-  end
-
-  def out_room_connection
-    :left
-  end
-
   def draw( gc, base_room, x_decal = 0 )
     min_x = base_room.max_x - x_decal
     max_x = min_x + HALLWAY_WIDTH * SQUARE_SIZE_IN_PIXELS - x_decal
