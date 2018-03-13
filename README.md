@@ -61,8 +61,8 @@ d.set_next_room( :left )
 
 This is an example of the current room : 
 
-![test picture](/images/entry-room.png)
+![test picture](/images/entry-room.jpg)
 
 This is an example of the full dungeon room : 
 
-![test picture](/images/dungeon.png)
+![test picture](/images/dungeon.jpg)
