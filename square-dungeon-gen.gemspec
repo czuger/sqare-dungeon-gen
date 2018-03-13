@@ -10,4 +10,6 @@ Gem::Specification.new do |s|
   s.homepage    =
       'https://github.com/czuger/sqare-dungeon-gen'
   s.license       = 'MIT'
+  s.add_dependency 'hazard'
+  s.add_dependency 'rmagick'
 end

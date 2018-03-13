@@ -17,3 +17,5 @@ d.draw_current_room( 'out/room.jpg'  )
 # Walker.new( d ).main_loop
 
 p d.available_directions
+
+pp d.to_json

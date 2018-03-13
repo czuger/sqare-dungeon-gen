@@ -6,7 +6,7 @@ class Room < DrawableObject
   SQUARES_BETWEEN_ROOMS = 4
   ROOM_SQUARE_SIZE = 8
 
-  attr_reader :top, :left, :entry_room, :min_x, :min_y, :max_x, :max_y, :connected_hallways
+  attr_reader :top, :left, :entry_room, :min_x, :min_y, :max_x, :max_y
   attr_accessor :room_id
 
   def initialize( top, left )
@@ -63,7 +63,14 @@ class Room < DrawableObject
   end
 
   def to_hash( hallways )
-    { room_id: @room_id, connected_hallways: hallways.connected_hallways( self ).map{ |k, h| { k => h.to_hash } } }
+    { room_id: @room_id, entry_room: @entry_room, content: @content, top: @top, left: @left,
+      connected_hallways: hallways.connected_hallways( self ).map{ |k, h| { k => h.to_hash } } }
+  end
+
+  def to_json( hallways )
+    h = to_hash( hallways )
+    h.delete(:connected_hallways)
+    h.to_json
   end
 
   private

@@ -48,4 +48,8 @@ class HallwaysList
     end
   end
 
+  def to_json
+    @hallways.values.map{ |v| v.to_json }
+  end
+
 end
