@@ -20,6 +20,7 @@ class Dungeon
     create_entry
     connect_hallways
     delete_rooms
+    generate_treasure
   end
 
   def draw( output_file )
@@ -68,10 +69,14 @@ class Dungeon
   end
 
   def generate_treasure
-    t_room_coords = []
-    t_room_coords[0] = @current_room.top == 1 ? @dungeon_size : 1
-    t_room_coords[1] = @current_room.left == 1 ? @dungeon_size : 1
-    @rooms[t_room_coords].set_treasure_room
+    rooms_distances = { }
+    @rooms.keys.each do |room_id|
+      rooms_distances[ room_id ] = distance_between_rooms_ids( @entry.room_id, room_id )
+    end
+    max_distance = rooms_distances.values.max
+    rooms_distances.delete_if {|_, value| value != max_distance }
+    treasure_room_id = rooms_distances.keys.sample
+    @rooms[treasure_room_id].set_treasure_room
   end
 
   private
@@ -80,6 +85,10 @@ class Dungeon
     @entry = random_entry_room
     @entry.set_entry_room
     @current_room = @entry
+  end
+
+  def distance_between_rooms_ids( r_id_1, r_id_2 )
+    Math.sqrt( (r_id_1[0] + r_id_2[0])**2  + (r_id_1[1] + r_id_2[1])**2  ).round
   end
 
   def create_dungeon

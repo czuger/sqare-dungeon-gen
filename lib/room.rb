@@ -25,7 +25,7 @@ class Room < DrawableObject
   end
 
   def set_treasure_room
-    @content = 'T'
+    @content = 'H'
   end
 
   def decal_at_origin

@@ -1,7 +1,11 @@
 require_relative 'lib/dungeon'
 require_relative 'lib/walker'
-# srand 27937539071995868852976873990277349000
-# p Random.new.seed
+
+s_seed = nil
+s_seed = 236222324035710783327094102724920156016
+seed = s_seed ? s_seed : Random.new_seed
+puts "Dungeon seed = #{seed}"
+srand( seed )
 
 d = Dungeon.new( 4 )
 
