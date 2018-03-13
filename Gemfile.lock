@@ -1,17 +1,27 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    docile (1.1.5)
     hazard (1.0.3)
+    json (2.1.0)
+    minitest (5.11.3)
     rmagick (2.15.4)
     ruby_deep_clone (0.8.0)
+    simplecov (0.15.1)
+      docile (~> 1.1.0)
+      json (>= 1.8, < 3)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   hazard
+  minitest
   rmagick
   ruby_deep_clone
+  simplecov
 
 BUNDLED WITH
    1.16.1

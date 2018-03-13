@@ -11,24 +11,16 @@ require 'json'
 
 class Dungeon
 
-  attr_reader :current_room, :hallways
+  attr_reader :current_room, :hallways, :rooms
 
   include DungeonGenerator
   include DungeonDraw
 
   def initialize( dungeon_size, rooms_removal_coef = 0.3 )
     @dungeon_size = dungeon_size
+    @rooms_removal_coef = rooms_removal_coef
     @rooms = {}
     @hallways = HallwaysList.new
-    @rooms_removal_coef = rooms_removal_coef
-  end
-
-  def generate_dungeon
-    create_dungeon
-    create_entry
-    connect_hallways
-    delete_rooms
-    generate_treasure
   end
 
   def set_next_room( direction )
@@ -51,17 +43,19 @@ class Dungeon
     }.to_json
   end
 
-  def from_json( json_string )
-    data = JSON.parse( json_string )
-    # pp data
-    @dungeon_size = data['dungeon_size']
-    @rooms_removal_coef = data['rooms_removal_coef']
-
+  def from_json( data )
     @rooms = Hash[ data['rooms'].map{ |dr| [ dr['room_id'], Room.new( dr['top'], dr['left'] ).from_json( dr ) ] } ]
     @hallways.from_json(data['hallways'], @rooms)
 
     @entry = @rooms[data['entry_room_id']]
     @current_room = @rooms[data['current_room_id']]
+  end
+
+  def self.from_json( json_string )
+    data = JSON.parse( json_string )
+    dungeon = Dungeon.new( data['dungeon_size'], data['rooms_removal_coef'] )
+    dungeon.from_json(data)
+    dungeon
   end
 
 end

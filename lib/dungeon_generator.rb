@@ -1,5 +1,14 @@
 module DungeonGenerator
 
+  def generate_dungeon( output=false )
+    @output = output
+    create_dungeon
+    create_entry
+    connect_hallways
+    delete_rooms
+    generate_treasure
+  end
+
   private
 
   def generate_treasure
@@ -46,9 +55,9 @@ module DungeonGenerator
   def delete_rooms
 
     to_delete_rooms_keys = @rooms.keys.shuffle
-    puts "Current dungeon size = #{@rooms.count}"
+    puts "Current dungeon size = #{@rooms.count}" if @output
     target_dungeon_size = @rooms.count - ((@dungeon_size**2)*@rooms_removal_coef).ceil
-    puts "Target dungeon size = #{target_dungeon_size}"
+    puts "Target dungeon size = #{target_dungeon_size}" if @output
 
     while @rooms.count > target_dungeon_size && !to_delete_rooms_keys.empty?
 
@@ -66,7 +75,7 @@ module DungeonGenerator
 
     end
 
-    puts "Final dungeon size = #{@rooms.count}"
+    puts "Final dungeon size = #{@rooms.count}" if @output
   end
 
   def external_rooms
