@@ -8,4 +8,4 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
 gem 'rmagick'
 gem 'ruby_deep_clone'
-
+gem 'hazard'

@@ -67,6 +67,13 @@ class Dungeon
     @hallways.directions( @current_room )
   end
 
+  def generate_treasure
+    t_room_coords = []
+    t_room_coords[0] = @current_room.top == 1 ? @dungeon_size : 1
+    t_room_coords[1] = @current_room.left == 1 ? @dungeon_size : 1
+    @rooms[t_room_coords].set_treasure_room
+  end
+
   private
 
   def create_entry

@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    hazard (1.0.3)
     rmagick (2.15.4)
     ruby_deep_clone (0.8.0)
 
@@ -8,6 +9,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  hazard
   rmagick
   ruby_deep_clone
 

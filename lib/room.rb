@@ -1,4 +1,5 @@
 require_relative 'drawable_object'
+require 'hazard'
 
 class Room < DrawableObject
 
@@ -11,6 +12,7 @@ class Room < DrawableObject
   def initialize( top, left )
     @top = top
     @left = left
+    fill_room
   end
 
   def top_left_array
@@ -19,6 +21,11 @@ class Room < DrawableObject
 
   def set_entry_room
     @entry_room = true
+    @content = 'E'
+  end
+
+  def set_treasure_room
+    @content = 'T'
   end
 
   def decal_at_origin
@@ -49,8 +56,8 @@ class Room < DrawableObject
       gc.line( @min_x, @min_y + SQUARE_SIZE_IN_PIXELS*t, @max_x, @min_y + SQUARE_SIZE_IN_PIXELS*t )
     end
 
-    if @entry_room
-      print_text( gc, 'E' )
+    if @content
+      print_text( gc, @content )
     end
 
   end
@@ -60,6 +67,12 @@ class Room < DrawableObject
   end
 
   private
+
+  def fill_room
+    roll = Hazard.d6
+    @content = 'T' if roll == 1
+    @content = 'M' if roll > 1 && roll < 6
+  end
 
   def print_text( gc, text )
     x = @min_x + 3.3 * SQUARE_SIZE_IN_PIXELS

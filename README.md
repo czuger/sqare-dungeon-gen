@@ -25,7 +25,7 @@ require 'square-dungeon-gen'
 
 ### Basics
 ------
-
+ 
 ```ruby
 # Create a dungeon
 d=Dungeon.new( dungeon_size )
