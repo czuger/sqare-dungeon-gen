@@ -14,7 +14,7 @@ class Hallway < DrawableObject
   end
 
   def to_hash
-    { hallway_id: @hallway_id, klass: self.class, disabled: @disabled, draw_base_room: @draw_base_room.room_id }
+    { hallway_id: @hallway_id, klass: self.class.name, disabled: @disabled, draw_base_room: @draw_base_room.room_id }
   end
 
   private
