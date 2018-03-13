@@ -7,12 +7,17 @@ class VerticalHallway < Hallway
 
   def set_input_room( room )
     @rooms[ :top ] = room
-    room.connect_hallway( :top, self )
   end
 
   def set_output_room( room )
     @rooms[ :bottom ] = room
-    room.connect_hallway( :bottom, self )
+  end
+
+  def get_direction_array( rooms_keys, room )
+    return [ nil, nil ] if disabled
+    return [ :top, self ] if rooms_keys[0] == room.top_left_array
+    return [ :bottom, self ] if rooms_keys[1] == room.top_left_array
+    [ nil, nil ]
   end
 
   def connected_room( direction )

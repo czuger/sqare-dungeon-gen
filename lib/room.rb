@@ -11,7 +11,6 @@ class Room < DrawableObject
   def initialize( top, left )
     @top = top
     @left = left
-    @connected_hallways = {}
   end
 
   def top_left_array
@@ -25,10 +24,6 @@ class Room < DrawableObject
   def decal_at_origin
     @top = 1
     @left = 1
-  end
-
-  def connect_hallway( direction, hallway )
-    @connected_hallways[ direction ] = hallway
   end
 
   def compute_coords
@@ -60,8 +55,8 @@ class Room < DrawableObject
 
   end
 
-  def to_hash
-    { room_id: @room_id, connected_hallways: @connected_hallways.map{ |k, h| { k => h.to_hash } } }
+  def to_hash( hallways )
+    { room_id: @room_id, connected_hallways: hallways.connected_hallways( self ).map{ |k, h| { k => h.to_hash } } }
   end
 
   private

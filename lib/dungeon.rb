@@ -51,7 +51,7 @@ class Dungeon
   def print_dungeon
     rooms = {}
     @rooms.each do |_, v|
-      rooms[ v.room_id ] = v.to_hash
+      rooms[ v.room_id ] = v.to_hash( hallways )
     end
     File.open('out/dungeon.txt','w') do |f|
       PP.pp(rooms,f)
