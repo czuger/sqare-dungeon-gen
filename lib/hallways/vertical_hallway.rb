@@ -12,6 +12,14 @@ class VerticalHallway < Hallway
     [ nil, nil ]
   end
 
+  def get_connected_room( direction )
+    if direction == :bottom
+      @hallway_id[1]
+    else
+      @hallway_id[1]
+    end
+  end
+
   def draw( gc, base_room, y_decal = 0 )
     min_x = base_room.min_x + ( Room::ROOM_SQUARE_SIZE/2-1 ) * SQUARE_SIZE_IN_PIXELS
     max_x = min_x + HALLWAY_WIDTH * SQUARE_SIZE_IN_PIXELS

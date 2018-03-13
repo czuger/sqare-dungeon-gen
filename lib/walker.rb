@@ -18,7 +18,8 @@ class Walker
       p direction
       direction = _directions[direction]
       p direction
-      p @dungeon.current_room.connected_hallways[direction].connected_room(direction)
+
+      p @dungeon.get_next_room( :left )
 
     end
   end

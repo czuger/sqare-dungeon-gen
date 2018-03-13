@@ -11,4 +11,4 @@ d.draw( 'out/dungeon.jpg' )
 `rm out/room.jpg`
 d.draw_current_room( 'out/room.jpg'  )
 
-# Walker.new( d ).main_loop
+Walker.new( d ).main_loop

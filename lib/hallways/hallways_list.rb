@@ -10,6 +10,12 @@ class HallwaysList
     hallway.set_draw_base_room( r1 )
   end
 
+  def get_room_id_from_direction( room, direction )
+    connections = connected_hallways( room )
+    connected_hallway = connections[direction]
+    connected_hallway.get_connected_room(direction)
+  end
+
   def connected_hallways( room )
     hallways = {}
     @hallways.each_pair do |rooms_keys, hallway|
