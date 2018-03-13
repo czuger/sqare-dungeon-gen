@@ -5,22 +5,6 @@ This repository contain a library for generating square simple dungeons
 
 This gem has been tested with ruby 2.4.2
 
-## Setup
-
-```shell
-gem install square-dungeon-gen
-```
-
-Or in your gemfile : 
-```ruby
-gem 'square-dungeon-gen'
-```
-
-Then in your code :
-```ruby
-require 'square-dungeon-gen'
-```
-
 ## Usage
 
 ### Basics
