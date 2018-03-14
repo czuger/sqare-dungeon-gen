@@ -2,8 +2,8 @@ require_relative 'hallway'
 
 class HorizontalHallway < Hallway
 
-  HALLWAY_HEIGHT=2
-  HALLWAY_WIDTH=4
+  HALLWAY_HEIGHT=HALLWAYS_WIDTH
+  HALLWAY_WIDTH=HALLWAYS_LENGTH
 
   def get_direction_array( rooms_keys, room )
     return [ nil, nil ] if disabled

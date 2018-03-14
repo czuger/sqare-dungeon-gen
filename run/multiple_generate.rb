@@ -1,4 +1,4 @@
-require_relative '../lib/dungeon'
+require_relative '../lib/dungeon/dungeon'
 
 1.upto 100 do
   d = Dungeon.new( 5 )

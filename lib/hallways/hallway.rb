@@ -5,6 +5,10 @@ class Hallway < DrawableObject
   attr_reader :disabled, :rooms, :hallway_id
   attr_accessor :hallway_id
 
+  # Should be half room size
+  HALLWAYS_LENGTH=6
+  HALLWAYS_WIDTH=2
+
   def disable!
     @disabled = true
   end

@@ -1,10 +1,11 @@
 require_relative 'drawable_object'
+require_relative 'hallways/hallway'
 require 'hazard'
 
 class Room < DrawableObject
 
-  SQUARES_BETWEEN_ROOMS = 4
-  ROOM_SQUARE_SIZE = 8
+  SQUARES_BETWEEN_ROOMS = Hallway::HALLWAYS_LENGTH
+  ROOM_SQUARE_SIZE = 12
 
   attr_reader :top, :left, :entry_room, :min_x, :min_y, :max_x, :max_y
   attr_accessor :room_id
@@ -91,8 +92,8 @@ class Room < DrawableObject
   end
 
   def print_text( gc, text )
-    x = @min_x + 3.3 * SQUARE_SIZE_IN_PIXELS
-    y = @min_y + 4.7 * SQUARE_SIZE_IN_PIXELS
+    x = @min_x + (ROOM_SQUARE_SIZE/3) * SQUARE_SIZE_IN_PIXELS
+    y = @min_y + (ROOM_SQUARE_SIZE/3) * SQUARE_SIZE_IN_PIXELS
     gc.pointsize( 100 )
     gc.fill( 'black' )
     # puts text.join( '' ).inspect

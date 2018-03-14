@@ -1,5 +1,5 @@
-require_relative 'lib/ib/dungeon'
-require_relative 'lib/walker'
+require_relative '../lib/dungeon/dungeon'
+# require_relative 'lib/walker'
 
 s_seed = nil
 s_seed = 236222324035710783327094102724920156016
@@ -10,10 +10,10 @@ srand( seed )
 d = Dungeon.new( 3 )
 d.generate_dungeon
 
-d.print_dungeon
-d.draw( 'out/dungeon.jpg' )
+# d.print_dungeon
+d.draw( '../out/dungeon.jpg' )
 
-d.draw_current_room( 'out/room.jpg'  )
+# d.draw_current_room( 'out/room.jpg'  )
 
 # Walker.new( d ).main_loop
 
