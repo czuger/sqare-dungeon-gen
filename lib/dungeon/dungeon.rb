@@ -1,4 +1,4 @@
-require_relative '../room'
+require_relative '../rooms/room'
 require_relative 'dungeon_walker'
 require_relative 'dungeon_generator'
 require_relative 'dungeon_draw'

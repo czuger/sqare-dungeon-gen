@@ -1,4 +1,4 @@
-require_relative '../drawable_object'
+require_relative '../misc/drawable_object'
 
 class Hallway < DrawableObject
 

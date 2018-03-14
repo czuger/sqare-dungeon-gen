@@ -1,5 +1,5 @@
-require_relative 'drawable_object'
-require_relative 'hallways/hallway'
+require_relative '../misc/drawable_object'
+require_relative '../hallways/hallway'
 require 'hazard'
 
 class Room < DrawableObject
@@ -92,9 +92,9 @@ class Room < DrawableObject
   end
 
   def print_text( gc, text )
-    x = @min_x + (ROOM_SQUARE_SIZE/3) * SQUARE_SIZE_IN_PIXELS
-    y = @min_y + (ROOM_SQUARE_SIZE/3) * SQUARE_SIZE_IN_PIXELS
-    gc.pointsize( 100 )
+    x = @min_x + (ROOM_SQUARE_SIZE/2.35) * SQUARE_SIZE_IN_PIXELS
+    y = @min_y + (ROOM_SQUARE_SIZE/1.73) * SQUARE_SIZE_IN_PIXELS
+    gc.pointsize( (ROOM_SQUARE_SIZE*100)/8 )
     gc.fill( 'black' )
     # puts text.join( '' ).inspect
     gc.text( x, y, text )
