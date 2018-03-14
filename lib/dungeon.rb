@@ -24,6 +24,7 @@ class Dungeon
   end
 
   def set_next_room( direction )
+    assert_dungeon_generated
     room_id = @hallways.get_room_id_from_direction( @current_room, direction )
     @current_room = @rooms[ room_id ]
   end

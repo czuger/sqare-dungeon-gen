@@ -19,10 +19,16 @@ class DungeonGeneration < Minitest::Test
   end
 
   def test_save_and_load_from_json
-    p @d.to_json
     new_d = Dungeon.from_json( @d.to_json )
     assert_equal @d.rooms[[2,1]].room_id, new_d.rooms[[2,1]].room_id
     refute new_d.rooms[[1,1]]
+  end
+
+  def test_save_and_load_from_json_and_navigate
+    new_d = Dungeon.from_json( @d.to_json )
+    assert_equal @d.rooms[[2,1]].room_id, new_d.rooms[[2,1]].room_id
+    refute new_d.rooms[[1,1]]
+    @d.set_next_room(:left)
   end
 
   def test_full_dungeon_drawing

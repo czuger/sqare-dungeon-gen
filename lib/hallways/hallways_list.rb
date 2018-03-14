@@ -11,7 +11,6 @@ class HallwaysList
   end
 
   def get_room_id_from_direction( room, direction )
-    assert_dungeon_generated
     connections = connected_hallways( room )
     connected_hallway = connections[direction]
     connected_hallway.get_connected_room(direction)
