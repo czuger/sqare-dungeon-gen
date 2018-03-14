@@ -93,7 +93,7 @@ class Room < DrawableObject
   def print_text( gc, text )
     x = @min_x + 3.3 * SQUARE_SIZE_IN_PIXELS
     y = @min_y + 4.7 * SQUARE_SIZE_IN_PIXELS
-    gc.pointsize( 200 )
+    gc.pointsize( 100 )
     gc.fill( 'black' )
     # puts text.join( '' ).inspect
     gc.text( x, y, text )

@@ -1,5 +1,5 @@
 class DrawableObject
 
-  SQUARE_SIZE_IN_PIXELS = 100
+  SQUARE_SIZE_IN_PIXELS = 50
 
 end
