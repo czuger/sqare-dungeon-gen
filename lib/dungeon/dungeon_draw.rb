@@ -43,8 +43,8 @@ module DungeonDraw
     @canvas = Magick::Image.new( width, height )
 
     @gc = Magick::Draw.new
-    @gc.stroke( 'darkslateblue' )
-    @gc.fill( 'white' )
+    @gc.stroke( DrawableObject::GRID_COLOR )
+    @gc.fill( DrawableObject::BACKGROUND_COLOR )
   end
 
   def draw_gc( output_file )

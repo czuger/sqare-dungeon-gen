@@ -7,7 +7,8 @@ seed = s_seed ? s_seed : Random.new_seed
 puts "Dungeon seed = #{seed}"
 srand( seed )
 
-d = Dungeon.new( 2 )
+# d = Dungeon.new( 1, 0 )
+d = Dungeon.new( 3 )
 d.generate_dungeon
 
 # d.print_dungeon
