@@ -5,6 +5,7 @@ GEM
     hazard (1.0.3)
     json (2.1.0)
     minitest (5.11.3)
+    rake (12.3.0)
     rmagick (2.15.4)
     ruby_deep_clone (0.8.0)
     simplecov (0.15.1)
@@ -19,6 +20,7 @@ PLATFORMS
 DEPENDENCIES
   hazard
   minitest
+  rake
   rmagick
   ruby_deep_clone
   simplecov
