@@ -26,6 +26,13 @@ class Hallway < DrawableObject
     { hallway_id: @hallway_id, klass: self.class.name, disabled: @disabled, draw_base_room: @draw_base_room.room_id }
   end
 
+  def get_direction_array( rooms_keys, room, input_output )
+    return [ nil, nil ] if disabled
+    return [ input_output[0], self ] if rooms_keys[0] == room.top_left_array
+    return [ input_output[1], self ] if rooms_keys[1] == room.top_left_array
+    [ nil, nil ]
+  end
+
   private
 
   def draw( gc, width, height, min_x, max_x, min_y, max_y, x_decal: 0, y_decal: 0 )

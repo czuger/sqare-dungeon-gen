@@ -6,10 +6,7 @@ class HorizontalHallway < Hallway
   HALLWAY_WIDTH=HALLWAYS_LENGTH
 
   def get_direction_array( rooms_keys, room )
-    return [ nil, nil ] if disabled
-    return [ :right, self ] if rooms_keys[0] == room.top_left_array
-    return [ :left, self ] if rooms_keys[1] == room.top_left_array
-    [ nil, nil ]
+    super( rooms_keys, room, [ :right, :left ] )
   end
 
   def get_connected_room( direction )
