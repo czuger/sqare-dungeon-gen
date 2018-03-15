@@ -7,7 +7,7 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 # gem 'rails'
 
 gem 'rmagick'
-gem 'ruby_deep_clone'
+# gem 'ruby_deep_clone'
 gem 'hazard'
 gem 'rake'
 

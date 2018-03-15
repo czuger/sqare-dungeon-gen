@@ -7,7 +7,6 @@ GEM
     minitest (5.11.3)
     rake (12.3.0)
     rmagick (2.15.4)
-    ruby_deep_clone (0.8.0)
     simplecov (0.15.1)
       docile (~> 1.1.0)
       json (>= 1.8, < 3)
@@ -22,7 +21,6 @@ DEPENDENCIES
   minitest
   rake
   rmagick
-  ruby_deep_clone
   simplecov
 
 BUNDLED WITH
