@@ -9,6 +9,11 @@ class Hallway < DrawableObject
   HALLWAYS_LENGTH=6
   HALLWAYS_WIDTH=2
 
+  def initialize
+    @disabled = false
+    @hallway_id = nil
+  end
+
   def disable!
     @disabled = true
   end

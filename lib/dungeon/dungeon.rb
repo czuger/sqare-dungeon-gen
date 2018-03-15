@@ -21,6 +21,8 @@ class Dungeon
     @rooms_removal_coef = rooms_removal_coef
     @rooms = {}
     @hallways = HallwaysList.new
+    @dungeon_generated = false
+    @current_room = nil
   end
 
   def set_next_room( direction )
