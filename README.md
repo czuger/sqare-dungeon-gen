@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/czuger/square-dungeon-gen.svg?branch=master)](https://travis-ci.org/czuger/square-dungeon-gen)
+[![Maintainability](https://api.codeclimate.com/v1/badges/a72af1658fd0931463a5/maintainability)](https://codeclimate.com/github/czuger/square-dungeon-gen/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/a72af1658fd0931463a5/test_coverage)](https://codeclimate.com/github/czuger/square-dungeon-gen/test_coverage)
+
 # Square dungeon gen
 This repository contain a library for generating square simple dungeons
 
