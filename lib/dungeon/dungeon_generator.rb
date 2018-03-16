@@ -1,6 +1,6 @@
 module DungeonGenerator
 
-  def generate_dungeon( output=false )
+  def generate( output=false )
     @output = output
     create_dungeon
     create_entry

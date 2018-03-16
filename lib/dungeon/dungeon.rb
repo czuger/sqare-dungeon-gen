@@ -32,6 +32,7 @@ class Dungeon
   end
 
   def available_directions
+    assert_dungeon_generated
     @hallways.directions( @current_room )
   end
 

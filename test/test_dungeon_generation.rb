@@ -10,7 +10,7 @@ class DungeonGeneration < Minitest::Test
     srand( seed )
 
     @d = Dungeon.new( 3 )
-    @d.generate_dungeon
+    @d.generate
   end
 
   def test_generate_a_full_dungeon

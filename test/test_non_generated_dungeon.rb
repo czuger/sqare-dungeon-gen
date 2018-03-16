@@ -42,7 +42,9 @@ class NonGeneratedDungeon < Minitest::Test
   end
 
   def test_directions
-    assert_equal [], @d.available_directions
+    assert_raises do
+      @d.available_directions
+    end
   end
 
   def test_navigation_in_dungeon

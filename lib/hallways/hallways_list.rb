@@ -13,6 +13,9 @@ class HallwaysList
   def get_room_id_from_direction( room, direction )
     connections = connected_hallways( room )
     connected_hallway = connections[direction]
+    unless connected_hallway
+      raise "Can't find a connected hallway. direction = #{direction.inspect}, connections = #{connections.inspect}"
+    end
     connected_hallway.get_connected_room(direction)
   end
 
