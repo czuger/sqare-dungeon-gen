@@ -35,7 +35,7 @@ module RoomContent
   def set_content_desc
     @content_description = case @content
       when 'M'
-        @@monsters_generator.get_encounter( :medium, 3, 3, 3, 3 ).to_s
+        @@monsters_generator.get_encounter( :medium, 3, 3, 3, 3 ).to_s + '.'
       else
         'Nothing in this room.'
     end
