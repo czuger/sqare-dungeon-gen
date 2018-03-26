@@ -51,7 +51,6 @@ class DungeonGeneration < Minitest::Test
 
   def test_directions
     assert_equal [:right, :top], @d.available_directions
-    p @d.current_room.content_description
   end
 
   def test_navigation_in_dungeon
