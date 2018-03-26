@@ -1,5 +1,6 @@
-PATH
-  remote: ../dd-next-encounters
+GIT
+  remote: https://github.com/czuger/dd-next-encounters.git
+  revision: 0f36c98245c9952a9eea410c16c0bbd822e3d448
   specs:
     dd-next-encounters (1.0.0)
       hazard (~> 1)
