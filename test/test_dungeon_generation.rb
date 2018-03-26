@@ -50,19 +50,24 @@ class DungeonGeneration < Minitest::Test
   end
 
   def test_directions
-    assert_equal [:right, :top], @d.available_directions
+    refute_empty @d.available_directions
   end
 
   def test_navigation_in_dungeon
-    @d.set_next_room(:right)
+    @d.set_next_room(@d.available_directions.first)
     @d.draw_current_room('out/tmp_room.jpg')
     assert File.exist?('out/tmp_room.jpg')
-    assert_equal [:left], @d.available_directions
-    @d.set_next_room(:left)
+    @d.set_next_room(@d.available_directions.first)
     @d.draw_current_room('out/tmp_room.jpg')
     assert File.exist?('out/tmp_room.jpg')
-    assert_equal [:right, :top], @d.available_directions
   end
 
+  def test_hoard_room_contains_hoard_message
+    @d.rooms.each do |_, room|
+      if room.content == 'H'
+        assert_equal 'The treasure, you find it.', room.content_description
+      end
+    end
+  end
 
 end

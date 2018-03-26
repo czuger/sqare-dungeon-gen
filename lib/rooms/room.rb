@@ -9,7 +9,7 @@ class Room < DrawableObject
   SQUARES_BETWEEN_ROOMS = Hallway::HALLWAYS_LENGTH
   ROOM_SQUARE_SIZE = 12
 
-  attr_reader :top, :left, :entry_room, :min_x, :min_y, :max_x, :max_y, :content
+  attr_reader :top, :left, :entry_room, :min_x, :min_y, :max_x, :max_y, :content, :content_description
   attr_accessor :room_id
 
   include RoomContent

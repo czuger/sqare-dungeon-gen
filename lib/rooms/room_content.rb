@@ -2,8 +2,6 @@ require 'hazard'
 
 module RoomContent
 
-  attr_reader :content_description
-
   @@monsters_generator = nil
 
   private
