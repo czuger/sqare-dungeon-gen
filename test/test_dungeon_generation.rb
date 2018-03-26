@@ -28,7 +28,7 @@ class DungeonGeneration < Minitest::Test
     new_d = Dungeon.from_json( @d.to_json )
     assert_equal @d.rooms[[1,1]].room_id, new_d.rooms[[1,1]].room_id
     refute new_d.rooms[[2,1]]
-    @d.set_next_room(:left)
+    @d.set_next_room(:right)
   end
 
   def test_full_dungeon_drawing
@@ -50,18 +50,19 @@ class DungeonGeneration < Minitest::Test
   end
 
   def test_directions
-    assert_equal [:left, :right], @d.available_directions
+    assert_equal [:right, :top], @d.available_directions
+    p @d.current_room.content_description
   end
 
   def test_navigation_in_dungeon
-    @d.set_next_room(:left)
-    @d.draw_current_room('out/tmp_room.jpg')
-    assert File.exist?('out/tmp_room.jpg')
-    assert_equal [:right], @d.available_directions
     @d.set_next_room(:right)
     @d.draw_current_room('out/tmp_room.jpg')
     assert File.exist?('out/tmp_room.jpg')
-    assert_equal [:left, :right], @d.available_directions
+    assert_equal [:left], @d.available_directions
+    @d.set_next_room(:left)
+    @d.draw_current_room('out/tmp_room.jpg')
+    assert File.exist?('out/tmp_room.jpg')
+    assert_equal [:right, :top], @d.available_directions
   end
 
 

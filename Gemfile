@@ -15,3 +15,6 @@ group :dev do
   gem 'minitest'
   gem 'simplecov', require: false
 end
+
+# gem 'dd-next-encounters', :git => 'https://github.com/czuger/dd-next-encounters.git'
+gem 'dd-next-encounters', :path => '../dd-next-encounters'

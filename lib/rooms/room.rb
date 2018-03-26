@@ -20,11 +20,16 @@ class Room < DrawableObject
     @left = left
     @decorations = {}
     @content = nil
+    @content_description = nil
     @entry_room = nil
     @room_id = [ top, left ]
     @decorations = []
     create_encounters
     create_decorations
+  end
+
+  def self.set_monsters_generator( monsters_generator )
+    @@monsters_generator = monsters_generator
   end
 
   def top_left_array
@@ -60,7 +65,8 @@ class Room < DrawableObject
   end
 
   def to_hash( hallways )
-    { room_id: @room_id, entry_room: @entry_room, content: @content, top: @top, left: @left,
+    { room_id: @room_id, entry_room: @entry_room, content: @content, content_description: @content_description,
+      top: @top, left: @left,
       connected_hallways: hallways.connected_hallways( self ).map{ |k, h| { k => h.to_hash } } }
   end
 
@@ -74,6 +80,7 @@ class Room < DrawableObject
     @room_id = room_data['room_id']
     @entry_room = room_data['entry_room']
     @content = room_data['content']
+    @content_description = room_data['content_description']
     @top = room_data['top'].to_i
     @left = room_data['left'].to_i
     self

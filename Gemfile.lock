@@ -1,3 +1,9 @@
+PATH
+  remote: ../dd-next-encounters
+  specs:
+    dd-next-encounters (1.0.0)
+      hazard (~> 1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -17,6 +23,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  dd-next-encounters!
   hazard
   minitest
   rake

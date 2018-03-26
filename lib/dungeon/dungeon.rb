@@ -5,6 +5,7 @@ require_relative 'dungeon_draw'
 require_relative '../hallways/horizontal_hallway'
 require_relative '../hallways/vertical_hallway'
 require_relative '../hallways/hallways_list'
+require 'dd-next-encounters'
 require 'rmagick'
 require 'pp'
 require 'json'
@@ -23,6 +24,10 @@ class Dungeon
     @hallways = HallwaysList.new
     @dungeon_generated = false
     @current_room = nil
+
+    lair = Lair.new
+    lair.read_manuals
+    Room.set_monsters_generator( lair )
   end
 
   def set_next_room( direction )
