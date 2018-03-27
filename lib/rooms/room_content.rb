@@ -1,16 +1,30 @@
 require 'hazard'
+require_relative 'room_traps'
 
 module RoomContent
 
   @@monsters_generator = nil
 
+  include RoomTraps
+
+  def set_entry_room
+    @entry_room = true
+    @content = 'E'
+    @content_description = 'This room is the entry room.'
+  end
+
+  def set_treasure_room
+    @content = 'H'
+    @content_description = 'The treasure, you find it.'
+  end
+
   private
 
   def create_encounters
+    @content_description = 'Nothing in this room.'
     roll = Hazard.d6
-    @content = 'T' if roll == 1
-    @content = 'M' if roll > 1 && roll < 6
-    set_content_desc
+    generate_trap if roll == 1
+    generate_monster if roll > 1 && roll < 6
   end
 
   def create_decorations
@@ -30,13 +44,9 @@ module RoomContent
     @decorations << { decoration_type: :four_columns, decoration_data: [ column_1, column_2, column_3, column_4 ] }
   end
 
-  def set_content_desc
-    @content_description = case @content
-      when 'M'
-        @@monsters_generator.get_encounter( :medium, 3, 3, 3, 3 ).to_s + '.'
-      else
-        'Nothing in this room.'
-    end
+  def generate_monster
+    @content = 'M'
+    @content_description = @@monsters_generator.get_encounter( :medium, 3, 3, 3, 3 ).to_s + '.'
   end
 
 end

@@ -14,20 +14,20 @@ class DungeonGeneration < Minitest::Test
   end
 
   def test_generate_a_full_dungeon
-    refute @d.rooms[[2,1]]
+    refute @d.rooms[[2,3]]
     assert @d.rooms[[1,1]]
   end
 
   def test_save_and_load_from_json
     new_d = Dungeon.from_json( @d.to_json )
     assert_equal @d.rooms[[1,1]].room_id, new_d.rooms[[1,1]].room_id
-    refute new_d.rooms[[2,1]]
+    refute new_d.rooms[[2,3]]
   end
 
   def test_save_and_load_from_json_and_navigate
     new_d = Dungeon.from_json( @d.to_json )
     assert_equal @d.rooms[[1,1]].room_id, new_d.rooms[[1,1]].room_id
-    refute new_d.rooms[[2,1]]
+    refute new_d.rooms[[2,3]]
     @d.set_next_room(:right)
   end
 
@@ -66,6 +66,8 @@ class DungeonGeneration < Minitest::Test
     @d.rooms.each do |_, room|
       if room.content == 'H'
         assert_equal 'The treasure, you find it.', room.content_description
+      elsif room.content == 'T'
+        assert_match /The room contains a pit. Make a perception check against \d+. In case of failure the first character takes \d+ hp./, room.content_description
       end
     end
   end

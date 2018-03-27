@@ -36,17 +36,6 @@ class Room < DrawableObject
     [ @top, @left ]
   end
 
-  def set_entry_room
-    @entry_room = true
-    @content = 'E'
-    @content_description = 'This room is the entry room.'
-  end
-
-  def set_treasure_room
-    @content = 'H'
-    @content_description = 'The treasure, you find it.'
-  end
-
   def decal_at_origin
     @top = 1
     @left = 1
