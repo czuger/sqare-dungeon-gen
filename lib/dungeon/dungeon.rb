@@ -17,13 +17,15 @@ class Dungeon
   include DungeonGenerator
   include DungeonDraw
 
-  def initialize( dungeon_size, rooms_removal_coef = 0.3 )
+  def initialize( dungeon_size, party_levels, encounters_difficulty = :medium, rooms_removal_coef = 0.3 )
     @dungeon_size = dungeon_size
     @rooms_removal_coef = rooms_removal_coef
     @rooms = {}
     @hallways = HallwaysList.new
     @dungeon_generated = false
     @current_room = nil
+
+    Room.set_encounters_data( encounters_difficulty, party_levels )
 
     lair = Lair.new
     lair.read_manuals
@@ -50,7 +52,8 @@ class Dungeon
         current_room_id: @current_room.room_id,
         dungeon_generated: @dungeon_generated,
         rooms: @rooms.values.map{ |r| r.to_json_hash( @hallways ) },
-        hallways: @hallways.to_hash
+        hallways: @hallways.to_hash,
+        encounters_data: Room.get_encounters_data
     }.to_json
   end
 
@@ -63,6 +66,8 @@ class Dungeon
 
   def from_json( data )
     raise 'You must parse the json string before calling this method' if data.is_a? String
+    Room.set_encounters_data( data['encounters_data']['encounters_difficulty'], data['encounters_data']['party_levels'] )
+
     @dungeon_size = data['dungeon_size']
     @rooms_removal_coef = data['rooms_removal_coef']
     @dungeon_generated = data['dungeon_generated']

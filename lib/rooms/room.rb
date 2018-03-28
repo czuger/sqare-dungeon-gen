@@ -77,4 +77,13 @@ class Room < DrawableObject
     self
   end
 
+  def self.set_encounters_data( encounters_difficulty, party_levels )
+    @@party_levels = party_levels
+    @@encounters_difficulty = encounters_difficulty.to_sym
+  end
+
+  def self.get_encounters_data
+    { party_levels: @@party_levels, encounters_difficulty: @@encounters_difficulty }
+  end
+
 end

@@ -4,6 +4,10 @@ require_relative 'room_traps'
 module RoomContent
 
   @@monsters_generator = nil
+  @@party_levels = nil
+  @@encounters_difficulty = nil
+
+  attr_accessor :party_levels, :encounters_difficulty
 
   include RoomTraps
 
@@ -46,7 +50,7 @@ module RoomContent
 
   def generate_monster
     @content = 'M'
-    @content_description = @@monsters_generator.get_encounter( :medium, 3, 3, 3, 3 ).to_s + '.'
+    @content_description = @@monsters_generator.get_encounter( @@encounters_difficulty, *@@party_levels ).to_s + '.'
   end
 
 end

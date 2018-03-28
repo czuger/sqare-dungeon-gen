@@ -9,7 +9,7 @@ class DungeonGeneration < Minitest::Test
     # puts "Dungeon seed = #{seed}"
     srand( seed )
 
-    @d = Dungeon.new( 3 )
+    @d = Dungeon.new( 3, [1, 1, 1, 1] )
     @d.generate
   end
 
@@ -25,6 +25,7 @@ class DungeonGeneration < Minitest::Test
   end
 
   def test_save_and_load_from_json_and_navigate
+    # pp @d.to_json
     new_d = Dungeon.from_json( @d.to_json )
     assert_equal @d.rooms[[1,1]].room_id, new_d.rooms[[1,1]].room_id
     refute new_d.rooms[[2,3]]
