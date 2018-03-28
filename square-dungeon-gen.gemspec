@@ -12,6 +12,6 @@ Gem::Specification.new do |s|
   s.license       = 'MIT'
   s.add_dependency 'hazard', '~> 1'
   s.add_dependency 'rmagick', '~> 2.16'
-  s.add_dependency 'dd-next-encounters', '>= 1.0.1'
+  s.add_dependency 'dd-next-encounters', '>= 1.0.2'
   s.required_ruby_version = '>= 2.3.6'
 end
