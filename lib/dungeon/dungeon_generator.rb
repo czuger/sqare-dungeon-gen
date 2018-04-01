@@ -38,20 +38,16 @@ module DungeonGenerator
   end
 
   def create_dungeon
-    1.upto(@dungeon_size) do |top|
-      1.upto(@dungeon_size) do |left|
-        @rooms[ [ top, left ] ] = Room.new( top, left )
-        @rooms[ [ top, left ] ].room_id = [ top, left ]
-      end
+    Matrix.build( @dungeon_size ){ |r, c| [ r+1, c+1 ] }.to_a.flatten(1).each do |top, left|
+      @rooms[ [ top, left ] ] = Room.new( top, left )
+       @rooms[ [ top, left ] ].room_id = [ top, left ]
     end
   end
 
   def connect_hallways
-    1.upto(@dungeon_size) do |top|
-      1.upto(@dungeon_size) do |left|
-        @hallways.connect_rooms( @rooms[ [ top, left ] ],@rooms[ [ top, left+1 ] ], HorizontalHallway.new ) unless left == @dungeon_size
-        @hallways.connect_rooms( @rooms[ [ top, left ] ],@rooms[ [ top+1, left ] ], VerticalHallway.new ) unless top == @dungeon_size
-      end
+    Matrix.build( @dungeon_size ){ |r, c| [ r+1, c+1 ] }.to_a.flatten(1).each do |top, left|
+      @hallways.connect_rooms( @rooms[ [ top, left ] ],@rooms[ [ top, left+1 ] ], HorizontalHallway.new ) unless left == @dungeon_size
+      @hallways.connect_rooms( @rooms[ [ top, left ] ],@rooms[ [ top+1, left ] ], VerticalHallway.new ) unless top == @dungeon_size
     end
   end
 
