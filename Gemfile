@@ -16,5 +16,5 @@ group :dev do
   gem 'simplecov', require: false
 end
 
-gem 'dd-next-encounters', '>= 1.0.2', :git => 'https://github.com/czuger/dd-next-encounters.git'
+gem 'dd-next-encounters', '>= 2.0.0', :git => 'https://github.com/czuger/dd-next-encounters.git'
 # gem 'dd-next-encounters', :path => '../dd-next-encounters'

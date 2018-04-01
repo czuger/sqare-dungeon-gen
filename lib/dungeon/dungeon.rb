@@ -27,9 +27,8 @@ class Dungeon
 
     Room.set_encounters_data( encounters_difficulty, party_levels )
 
-    lair = Lair.new
-    lair.read_manuals
-    Room.set_monsters_generator( lair )
+    encounters = Encounters.new
+    Room.set_monsters_generator( encounters )
   end
 
   def set_next_room( direction )

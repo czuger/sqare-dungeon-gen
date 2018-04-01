@@ -1,35 +1,38 @@
 require_relative 'test_helper'
+require 'matrix'
 
 class DungeonGeneration < Minitest::Test
 
   def setup
-    s_seed = nil
-    s_seed = 236222324035710783327094102724920156016
-    seed = s_seed ? s_seed : Random.new_seed
-    # puts "Dungeon seed = #{seed}"
-    srand( seed )
-
     @d = Dungeon.new( 3, [1, 1, 1, 1] )
     @d.generate
+
+    @avail_rooms_ids = @d.rooms.keys
+    @unavail_rooms_ids = Matrix.build( 3 ).to_a.map{ |e| [ e[0]+1, e[1]+1 ] } - @d.rooms.keys
+
+    @first_avail_room_id = @avail_rooms_ids.first
+    @first_unavail_room_id = @unavail_rooms_ids.first
+    @first_avail_direction = @d.available_directions.first
   end
 
   def test_generate_a_full_dungeon
-    refute @d.rooms[[2,3]]
-    assert @d.rooms[[1,1]]
+    refute @d.rooms[@first_unavail_room_id]
+    assert @d.rooms[@first_avail_room_id]
   end
 
   def test_save_and_load_from_json
     new_d = Dungeon.from_json( @d.to_json )
-    assert_equal @d.rooms[[1,1]].room_id, new_d.rooms[[1,1]].room_id
-    refute new_d.rooms[[2,3]]
+    assert_equal @first_avail_room_id, new_d.rooms[@first_avail_room_id].room_id
+    refute new_d.rooms[@first_unavail_room_id]
   end
 
   def test_save_and_load_from_json_and_navigate
     # pp @d.to_json
     new_d = Dungeon.from_json( @d.to_json )
-    assert_equal @d.rooms[[1,1]].room_id, new_d.rooms[[1,1]].room_id
-    refute new_d.rooms[[2,3]]
-    @d.set_next_room(:right)
+    # p @d.available_directions
+    assert_equal @first_avail_room_id, new_d.rooms[@first_avail_room_id].room_id
+    refute new_d.rooms[@first_unavail_room_id]
+    @d.set_next_room(@first_avail_direction)
   end
 
   def test_full_dungeon_drawing

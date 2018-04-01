@@ -50,7 +50,7 @@ module RoomContent
 
   def generate_monster
     @content = 'M'
-    @content_description = @@monsters_generator.get_encounter( @@encounters_difficulty, *@@party_levels ).to_s + '.'
+    @content_description = @@monsters_generator.get_party_encounter( @@encounters_difficulty, *@@party_levels ).to_s + '.'
   end
 
 end
