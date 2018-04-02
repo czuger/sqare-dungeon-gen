@@ -7,7 +7,7 @@ This repository contain a library for generating square simple dungeons
 
 ## Compatibility
 
-This gem has been tested with ruby 2.3 -> 2.5
+Require ruby 2.4.0 or higher.
 
 ## Usage
 
