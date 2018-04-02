@@ -13,5 +13,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'hazard', '~> 1'
   s.add_dependency 'rmagick', '~> 2.16'
   s.add_dependency 'dd-next-encounters', '>= 2.0.0'
-  s.required_ruby_version = '>= 2.3.6'
+  s.required_ruby_version = '>= 2.4.3'
 end
