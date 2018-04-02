@@ -1,3 +1,5 @@
+require 'matrix'
+
 module DungeonGenerator
 
   def generate( output=false )

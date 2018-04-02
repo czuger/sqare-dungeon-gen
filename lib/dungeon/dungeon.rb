@@ -18,6 +18,7 @@ class Dungeon
   include DungeonDraw
 
   def initialize( dungeon_size, party_levels, encounters_difficulty = :medium, rooms_removal_coef = 0.3 )
+    check_params( dungeon_size, party_levels, encounters_difficulty = :medium, rooms_removal_coef )
     @dungeon_size = dungeon_size
     @rooms_removal_coef = rooms_removal_coef
     @rooms = {}
@@ -75,6 +76,12 @@ class Dungeon
 
     @entry = @rooms[data['entry_room_id']]
     @current_room = @rooms[data['current_room_id']]
+  end
+
+  private
+
+  def check_params( dungeon_size, party_levels, encounters_difficulty, rooms_removal_coef )
+    raise "dungeon_size should not be null" if dungeon_size == 0
   end
 
 end

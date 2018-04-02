@@ -11,6 +11,10 @@ module RoomContent
 
   include RoomTraps
 
+  CONTENT_DESC_EMPTY='Nothing in this room.'
+  CONTENT_DESC_MONSTERS_CLEARED='Slain monsters lying on the floor.'
+  CONTENT_DESC_TRAP_CLEARED='A deactivated trap. Be carefull.'
+
   def set_entry_room
     @entry_room = true
     @content = 'E'
@@ -22,10 +26,21 @@ module RoomContent
     @content_description = 'The treasure, you find it.'
   end
 
+  def clear
+    case @content
+      when 'T'
+        @content = nil
+        @content_description = CONTENT_DESC_TRAP_CLEARED
+      when 'M'
+        @content = nil
+        @content_description = CONTENT_DESC_MONSTERS_CLEARED
+    end
+  end
+
   private
 
   def create_encounters
-    @content_description = 'Nothing in this room.'
+    @content_description = CONTENT_DESC_EMPTY
     roll = Hazard.d6
     generate_trap if roll == 1
     generate_monster if roll > 1 && roll < 6
