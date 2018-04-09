@@ -15,7 +15,7 @@ class Room < DrawableObject
   include RoomContent
   include RoomDraw
 
-  def initialize( top, left )
+  def initialize( top, left, lair )
     @top = top
     @left = left
     @decorations = {}
@@ -24,12 +24,8 @@ class Room < DrawableObject
     @entry_room = nil
     @room_id = [ top, left ]
     @decorations = []
-    create_encounters
+    create_encounters( lair )
     create_decorations
-  end
-
-  def self.set_monsters_generator( monsters_generator )
-    @@monsters_generator = monsters_generator
   end
 
   def top_left_array
@@ -75,15 +71,6 @@ class Room < DrawableObject
     @top = room_data['top'].to_i
     @left = room_data['left'].to_i
     self
-  end
-
-  def self.set_encounters_data( encounters_difficulty, party_levels )
-    @@party_levels = party_levels
-    @@encounters_difficulty = encounters_difficulty.to_sym
-  end
-
-  def self.get_encounters_data
-    { party_levels: @@party_levels, encounters_difficulty: @@encounters_difficulty }
   end
 
 end

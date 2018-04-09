@@ -3,10 +3,6 @@ require_relative 'room_traps'
 
 module RoomContent
 
-  @@monsters_generator = nil
-  @@party_levels = nil
-  @@encounters_difficulty = nil
-
   attr_accessor :party_levels, :encounters_difficulty
 
   include RoomTraps
@@ -39,11 +35,11 @@ module RoomContent
 
   private
 
-  def create_encounters
+  def create_encounters( lair )
     @content_description = CONTENT_DESC_EMPTY
     roll = Hazard.d6
     generate_trap if roll == 1
-    generate_monster if roll > 1 && roll < 6
+    generate_monster( lair ) if roll > 1 && roll < 6
   end
 
   def create_decorations
@@ -63,9 +59,9 @@ module RoomContent
     @decorations << { decoration_type: :four_columns, decoration_data: [ column_1, column_2, column_3, column_4 ] }
   end
 
-  def generate_monster
+  def generate_monster( lair )
     @content = 'M'
-    @content_description = @@monsters_generator.get_party_encounter( @@encounters_difficulty, *@@party_levels ).to_s + '.'
+    @content_description = lair.encounter.to_s + '.'
   end
 
 end

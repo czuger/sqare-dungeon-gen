@@ -17,8 +17,8 @@ class Dungeon
   include DungeonGenerator
   include DungeonDraw
 
-  def initialize( dungeon_size, party_levels, encounters_difficulty = :medium, rooms_removal_coef = 0.3 )
-    check_params( dungeon_size, party_levels, encounters_difficulty = :medium, rooms_removal_coef )
+  def initialize( dungeon_size, party_levels, encounters_difficulty: :medium, rooms_removal_coef: 0.3, lair: nil )
+    check_params( dungeon_size, party_levels, encounters_difficulty, rooms_removal_coef )
     @dungeon_size = dungeon_size
     @rooms_removal_coef = rooms_removal_coef
     @rooms = {}
@@ -26,10 +26,7 @@ class Dungeon
     @dungeon_generated = false
     @current_room = nil
 
-    Room.set_encounters_data( encounters_difficulty, party_levels )
-
-    encounters = Encounters.new
-    Room.set_monsters_generator( encounters )
+    @lair = lair ? lair : Lairs.new( encounters_difficulty, party_levels )
   end
 
   def set_next_room( direction )
@@ -53,25 +50,25 @@ class Dungeon
         dungeon_generated: @dungeon_generated,
         rooms: @rooms.values.map{ |r| r.to_json_hash( @hallways ) },
         hallways: @hallways.to_hash,
-        encounters_data: Room.get_encounters_data
+        lair: @lair.to_hash
     }.to_json
   end
 
   def self.from_json( json_string )
     data = JSON.parse( json_string )
-    dungeon = Dungeon.new( data['dungeon_size'], data['rooms_removal_coef'] )
+    dungeon = Dungeon.new( data['dungeon_size'], data['rooms_removal_coef'],
+                           lair:Lairs.from_hash( data['lair'] ) )
     dungeon.from_json(data)
     dungeon
   end
 
   def from_json( data )
     raise 'You must parse the json string before calling this method' if data.is_a? String
-    Room.set_encounters_data( data['encounters_data']['encounters_difficulty'], data['encounters_data']['party_levels'] )
 
     @dungeon_size = data['dungeon_size']
     @rooms_removal_coef = data['rooms_removal_coef']
     @dungeon_generated = data['dungeon_generated']
-    @rooms = Hash[ data['rooms'].map{ |dr| [ dr['room_id'], Room.new( dr['top'], dr['left'] ).from_json( dr ) ] } ]
+    @rooms = Hash[ data['rooms'].map{ |dr| [ dr['room_id'], Room.new( dr['top'], dr['left'], @lair ).from_json( dr ) ] } ]
     @hallways.from_json(data['hallways'], @rooms)
 
     @entry = @rooms[data['entry_room_id']]

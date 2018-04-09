@@ -41,7 +41,7 @@ module DungeonGenerator
 
   def create_dungeon
     Matrix.build( @dungeon_size ){ |r, c| [ r+1, c+1 ] }.to_a.flatten(1).each do |top, left|
-      @rooms[ [ top, left ] ] = Room.new( top, left )
+      @rooms[ [ top, left ] ] = Room.new( top, left, @lair )
        @rooms[ [ top, left ] ].room_id = [ top, left ]
     end
   end

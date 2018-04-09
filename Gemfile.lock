@@ -1,8 +1,7 @@
-GIT
-  remote: https://github.com/czuger/dd-next-encounters.git
-  revision: a2a30cd6c85eac745005f2cc0192fb6d75eeda9f
+PATH
+  remote: ../dd-next-encounters
   specs:
-    dd-next-encounters (2.0.2)
+    dd-next-encounters (3.0.1)
       hazard (~> 1)
 
 GEM
@@ -24,7 +23,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  dd-next-encounters (>= 2.0.2)!
+  dd-next-encounters!
   hazard
   minitest
   rake
