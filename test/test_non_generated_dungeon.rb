@@ -10,6 +10,7 @@ class NonGeneratedDungeon < Minitest::Test
     srand( seed )
 
     @d = Dungeon.new( 3, [1, 1, 1, 1] )
+    # Dungeon is not generated in this test, mostly to test error cases.
   end
 
   def test_generate_a_full_dungeon
