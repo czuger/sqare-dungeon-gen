@@ -38,7 +38,9 @@ class DungeonGeneration < Minitest::Test
     # p @d.available_directions
     assert_equal @first_avail_room_id, new_d.rooms[@first_avail_room_id].id
     refute new_d.rooms[@first_unavail_room_id]
+    cd = @d.current_room
     @d.set_next_room(@first_avail_direction)
+    refute_equal cd, @d.current_room
   end
 
   def test_full_dungeon_drawing
@@ -65,7 +67,11 @@ class DungeonGeneration < Minitest::Test
 
   def test_navigation_in_dungeon
     # puts 'Avail directions = ' + @d.available_directions.to_s
+    # puts 'Current room = ' + @d.current_room.to_s
+    cd = @d.current_room
     @d.set_next_room(@d.available_directions.first)
+    refute_equal cd, @d.current_room
+    # puts 'Current room = ' + @d.current_room.to_s
     @d.draw_current_room('out/tmp_room.jpg')
     assert File.exist?('out/tmp_room.jpg')
     @d.set_next_room(@d.available_directions.first)

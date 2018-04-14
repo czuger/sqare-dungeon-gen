@@ -35,7 +35,7 @@ class Dungeon
     room_id = @hallways.get_room_id_from_direction( @current_room, direction )
     # puts 'Connected room id = ' + room_id.to_s
     # puts 'Rooms = ' + @rooms.keys.to_s
-    # @current_room = @rooms[ room_id ]
+    @current_room = @rooms[ room_id ]
   end
 
   def available_directions
