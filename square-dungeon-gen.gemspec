@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'square-dungeon-gen'
-  s.version     = '1.4.2'
+  s.version     = '1.4.3'
   s.date        = '2018-03-13'
   s.summary     = 'Generate square dungeons'
   s.description = 'A simple gem that generate square dungeons'
