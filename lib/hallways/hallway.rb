@@ -23,7 +23,7 @@ class Hallway < DrawableObject
   end
 
   def to_hash
-    { hallway_id: @hallway_id, klass: self.class.name, disabled: @disabled, draw_base_room: @draw_base_room.room_id }
+    { hallway_id: @hallway_id, klass: self.class.name, disabled: @disabled, draw_base_room: @draw_base_room.id }
   end
 
   def get_direction_array( rooms_keys, room, input_output )

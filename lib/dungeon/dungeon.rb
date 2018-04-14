@@ -31,8 +31,11 @@ class Dungeon
 
   def set_next_room( direction )
     assert_dungeon_generated
+    # puts 'Current room = ' + @current_room.id.to_s
     room_id = @hallways.get_room_id_from_direction( @current_room, direction )
-    @current_room = @rooms[ room_id ]
+    # puts 'Connected room id = ' + room_id.to_s
+    # puts 'Rooms = ' + @rooms.keys.to_s
+    # @current_room = @rooms[ room_id ]
   end
 
   def available_directions
@@ -45,8 +48,8 @@ class Dungeon
     {
         dungeon_size: @dungeon_size,
         rooms_removal_coef: @rooms_removal_coef,
-        entry_room_id: @entry.room_id,
-        current_room_id: @current_room.room_id,
+        entry_room_id: @entry.id,
+        current_room_id: @current_room.id,
         dungeon_generated: @dungeon_generated,
         rooms: @rooms.values.map{ |r| r.to_json_hash( @hallways ) },
         hallways: @hallways.to_hash,
@@ -68,7 +71,7 @@ class Dungeon
     @dungeon_size = data['dungeon_size']
     @rooms_removal_coef = data['rooms_removal_coef']
     @dungeon_generated = data['dungeon_generated']
-    @rooms = Hash[ data['rooms'].map{ |dr| [ dr['room_id'], Room.new( dr['top'], dr['left'], @lair ).from_json( dr ) ] } ]
+    @rooms = Hash[ data['rooms'].map{ |dr| [ dr['id'], Room.new( dr['top'], dr['left'], @lair, dr ) ] } ]
     @hallways.from_json(data['hallways'], @rooms)
 
     @entry = @rooms[data['entry_room_id']]

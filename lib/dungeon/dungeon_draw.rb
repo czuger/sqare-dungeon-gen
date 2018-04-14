@@ -30,7 +30,7 @@ module DungeonDraw
   def print_dungeon( output_file )
     rooms = {}
     @rooms.each do |_, v|
-      rooms[ v.room_id ] = v.to_hash( hallways )
+      rooms[ v.id ] = v.to_hash(hallways )
     end
     File.open(output_file,'w') do |f|
       PP.pp(rooms,f)

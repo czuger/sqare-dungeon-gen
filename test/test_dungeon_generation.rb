@@ -4,6 +4,12 @@ require 'matrix'
 class DungeonGeneration < Minitest::Test
 
   def setup
+    s_seed = nil
+    s_seed = 236222324035710783327094102724920156016
+    seed = s_seed ? s_seed : Random.new_seed
+    # puts "Dungeon seed = #{seed}"
+    srand( seed )
+
     @d = Dungeon.new( 3, [1, 1, 1, 1] )
     @d.generate
 
@@ -22,7 +28,7 @@ class DungeonGeneration < Minitest::Test
 
   def test_save_and_load_from_json
     new_d = Dungeon.from_json( @d.to_json )
-    assert_equal @first_avail_room_id, new_d.rooms[@first_avail_room_id].room_id
+    assert_equal @first_avail_room_id, new_d.rooms[@first_avail_room_id].id
     refute new_d.rooms[@first_unavail_room_id]
   end
 
@@ -30,7 +36,7 @@ class DungeonGeneration < Minitest::Test
     # pp @d.to_json
     new_d = Dungeon.from_json( @d.to_json )
     # p @d.available_directions
-    assert_equal @first_avail_room_id, new_d.rooms[@first_avail_room_id].room_id
+    assert_equal @first_avail_room_id, new_d.rooms[@first_avail_room_id].id
     refute new_d.rooms[@first_unavail_room_id]
     @d.set_next_room(@first_avail_direction)
   end
@@ -58,6 +64,7 @@ class DungeonGeneration < Minitest::Test
   end
 
   def test_navigation_in_dungeon
+    # puts 'Avail directions = ' + @d.available_directions.to_s
     @d.set_next_room(@d.available_directions.first)
     @d.draw_current_room('out/tmp_room.jpg')
     assert File.exist?('out/tmp_room.jpg')

@@ -21,7 +21,7 @@ module DungeonGenerator
   def generate_treasure
     rooms_distances = { }
     @rooms.keys.each do |room_id|
-      rooms_distances[ room_id ] = distance_between_rooms_ids( @entry.room_id, room_id )
+      rooms_distances[ room_id ] = distance_between_rooms_ids(@entry.id, room_id )
     end
     max_distance = rooms_distances.values.max
     rooms_distances.delete_if {|_, value| value != max_distance }
@@ -42,7 +42,7 @@ module DungeonGenerator
   def create_dungeon
     Matrix.build( @dungeon_size ){ |r, c| [ r+1, c+1 ] }.to_a.flatten(1).each do |top, left|
       @rooms[ [ top, left ] ] = Room.new( top, left, @lair )
-       @rooms[ [ top, left ] ].room_id = [ top, left ]
+       @rooms[ [ top, left ] ].id = [ top, left ]
     end
   end
 

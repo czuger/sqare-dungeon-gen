@@ -12,6 +12,7 @@ class HallwaysList
 
   def get_room_id_from_direction( room, direction )
     connections = connected_hallways( room )
+    # puts "Connected hallways = " + connections.map{ |k, h| [ k, h.hallway_id ] }.to_s
     connected_hallway = connections[direction]
     unless connected_hallway
       raise "Can't find a connected hallway. direction = #{direction.inspect}, connections = #{connections.inspect}"

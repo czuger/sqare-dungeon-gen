@@ -10,22 +10,21 @@ class Room < DrawableObject
   ROOM_SQUARE_SIZE = 12
 
   attr_reader :top, :left, :entry_room, :min_x, :min_y, :max_x, :max_y, :content, :content_description
-  attr_accessor :room_id
+  attr_accessor :id
 
   include RoomContent
   include RoomDraw
 
-  def initialize( top, left, lair )
-    @top = top
-    @left = left
-    @decorations = {}
-    @content = nil
-    @content_description = nil
-    @entry_room = nil
-    @room_id = [ top, left ]
-    @decorations = []
-    create_encounters( lair )
-    create_decorations
+  def initialize( top, left, lair, room_data = {} )
+    @top = room_data['top'] ? room_data['top'].to_i : top
+    @left = room_data['left'] ? room_data['left'].to_i : left
+    @content = room_data['content']
+    @content_description = room_data['content_description']
+    @entry_room = room_data['entry_room']
+    @id = room_data['id'] ? room_data['id'] : [ top, left ]
+    @decorations = room_data['decorations'] ? room_data['decorations'] : []
+    create_encounters( lair ) unless room_data['content_description']
+    create_decorations unless room_data['decorations']
   end
 
   def top_left_array
@@ -52,25 +51,15 @@ class Room < DrawableObject
   end
 
   def to_hash( hallways )
-    { room_id: @room_id, entry_room: @entry_room, content: @content, content_description: @content_description,
-      top: @top, left: @left,
-      connected_hallways: hallways.connected_hallways( self ).map{ |k, h| { k => h.to_hash } } }
+    {id: @id, entry_room: @entry_room, content: @content, content_description: @content_description,
+     top: @top, left: @left, decorations: @decorations,
+     connected_hallways: hallways.connected_hallways( self ).map{ |k, h| { k => h.to_hash } } }
   end
 
   def to_json_hash( hallways )
     h = to_hash( hallways )
     h.delete(:connected_hallways)
     h
-  end
-
-  def from_json( room_data )
-    @room_id = room_data['room_id']
-    @entry_room = room_data['entry_room']
-    @content = room_data['content']
-    @content_description = room_data['content_description']
-    @top = room_data['top'].to_i
-    @left = room_data['left'].to_i
-    self
   end
 
 end
