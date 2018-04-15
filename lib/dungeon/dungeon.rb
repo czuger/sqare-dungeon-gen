@@ -52,8 +52,6 @@ class Dungeon
   def self.from_json( json_string )
     data = JSON.parse( json_string )
     dungeon = Dungeon.new
-    dungeon.generate( data['dungeon_size'], data['rooms_removal_coef'],
-                           lair:Lairs.from_hash( data['lair'] ) )
     dungeon.from_json(data)
     dungeon
   end
@@ -64,7 +62,11 @@ class Dungeon
     @dungeon_size = data['dungeon_size']
     @rooms_removal_coef = data['rooms_removal_coef']
     @dungeon_generated = data['dungeon_generated']
+
+    @lair = Lairs.from_hash( data['lair'] )
     @rooms = Hash[ data['rooms'].map{ |dr| [ dr['id'], Room.new( dr['top'], dr['left'], @lair, dr ) ] } ]
+
+    @hallways = HallwaysList.new
     @hallways.from_json(data['hallways'], @rooms)
 
     @entry = @rooms[data['entry_room_id']]
