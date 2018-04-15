@@ -16,16 +16,19 @@ Require ruby 2.4.0 or higher.
  
 ```ruby
 # Create a dungeon for four 1 level players
-d=Dungeon.new( dungeon_size, party_array )
+d=Dungeon.new
+d.generate( dungeon_size, party_array )
 
 # Exemple :
-d=Dungeon.new( 4, [ 1, 1, 1, 1 ] )
+d=Dungeon.new
+d.generate( 4, [ 1, 1, 1, 1 ] )
 # This will not create a dungeon of 4 rooms size, but a dungeon of 4**2*0.3 rooms (rounded up)
 # The dungeon constructor accept another parameter wich is the amount of rooms to remove from the dungeon
 # This parameter is a number between 0 and 1. By default it is set to 0.3 which mean that it will remove 30% of the rooms.
 # The [ 1, 1, 1, 1 ] array mean that the dungeon is designed for four 1 level players.
 
-d=Dungeon.new( 4, [ 1, 1, 1, 1 ], 0.5 )
+d=Dungeon.new
+d.generate( 4, [ 1, 1, 1, 1 ], 0.5 )
 # Will remove 50% of the rooms
 
 # Draw your dungeon
