@@ -1,6 +1,7 @@
 module DungeonDraw
 
   def draw( output_file )
+    assert_dungeon_generated
     width = height = ( @dungeon_size * Room::ROOM_SQUARE_SIZE +
         ( ( @dungeon_size-1 ) * Room::SQUARES_BETWEEN_ROOMS ) ) * Room::SQUARE_SIZE_IN_PIXELS +
         ( Room::ROOM_SQUARE_SIZE * Room::SQUARE_SIZE_IN_PIXELS )
@@ -28,6 +29,7 @@ module DungeonDraw
   end
 
   def print_dungeon( output_file )
+    assert_dungeon_generated
     rooms = {}
     @rooms.each do |_, v|
       rooms[ v.id ] = v.to_hash(hallways )

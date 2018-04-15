@@ -44,7 +44,7 @@ module RoomContent
 
   def create_decorations
     roll = Hazard.d6
-    create_four_columns if roll == 1
+    create_four_columns if roll >= 5
   end
 
   def create_four_columns

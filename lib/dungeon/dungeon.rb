@@ -17,16 +17,8 @@ class Dungeon
   include DungeonGenerator
   include DungeonDraw
 
-  def initialize( dungeon_size, party_levels, encounters_difficulty: :medium, rooms_removal_coef: 0.3, lair: nil )
-    check_params( dungeon_size, party_levels, encounters_difficulty, rooms_removal_coef )
-    @dungeon_size = dungeon_size
-    @rooms_removal_coef = rooms_removal_coef
-    @rooms = {}
-    @hallways = HallwaysList.new
-    @dungeon_generated = false
-    @current_room = nil
-
-    @lair = lair ? lair : Lairs.new( encounters_difficulty, party_levels )
+  def initialize
+    @dungeon_size = @rooms_removal_coef = @rooms = @hallways = @dungeon_generated = @current_room = @lair = nil
   end
 
   def set_next_room( direction )
@@ -59,7 +51,8 @@ class Dungeon
 
   def self.from_json( json_string )
     data = JSON.parse( json_string )
-    dungeon = Dungeon.new( data['dungeon_size'], data['rooms_removal_coef'],
+    dungeon = Dungeon.new
+    dungeon.generate( data['dungeon_size'], data['rooms_removal_coef'],
                            lair:Lairs.from_hash( data['lair'] ) )
     dungeon.from_json(data)
     dungeon

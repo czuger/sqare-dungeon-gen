@@ -9,13 +9,17 @@ class NonGeneratedDungeon < Minitest::Test
     # puts "Dungeon seed = #{seed}"
     srand( seed )
 
-    @d = Dungeon.new( 3, [1, 1, 1, 1] )
+    @d = Dungeon.new
     # Dungeon is not generated in this test, mostly to test error cases.
   end
 
   def test_generate_a_full_dungeon
-    refute @d.rooms[[1,1]]
-    refute @d.rooms[[2,1]]
+    assert_raises do
+      @d.rooms[[1,1]]
+    end
+    assert_raises do
+      @d.rooms[[2,1]]
+    end
   end
 
   def test_save_and_load_from_json
@@ -25,9 +29,9 @@ class NonGeneratedDungeon < Minitest::Test
   end
 
   def test_full_dungeon_drawing
-    @d.draw('out/tmp_full.jpg')
-    assert File.exist?('out/tmp_full.jpg')
-    `rm out/tmp_full.jpg`
+    assert_raises do
+      @d.draw('out/tmp_full.jpg')
+    end
   end
 
   def test_room_dungeon_drawing
@@ -37,9 +41,9 @@ class NonGeneratedDungeon < Minitest::Test
   end
 
   def test_dungeon_printing
-    @d.print_dungeon('out/tmp_dungeon.txt')
-    assert File.exist?('out/tmp_dungeon.txt')
-    `rm out/tmp_dungeon.txt`
+    assert_raises do
+      @d.print_dungeon('out/tmp_dungeon.txt')
+    end
   end
 
   def test_directions

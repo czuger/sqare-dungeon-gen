@@ -2,7 +2,17 @@ require 'matrix'
 
 module DungeonGenerator
 
-  def generate( output=false )
+  def generate( dungeon_size, party_levels, encounters_difficulty: :medium, rooms_removal_coef: 0.3, lair: nil, output: false )
+    check_params( dungeon_size, party_levels, encounters_difficulty, rooms_removal_coef )
+    @dungeon_size = dungeon_size
+    @rooms_removal_coef = rooms_removal_coef
+    @rooms = {}
+    @hallways = HallwaysList.new
+    @dungeon_generated = false
+    @current_room = nil
+
+    @lair = lair ? lair : Lairs.new( encounters_difficulty, party_levels )
+
     @output = output
     create_dungeon
     create_entry

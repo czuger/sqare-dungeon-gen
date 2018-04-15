@@ -10,8 +10,8 @@ class DungeonGeneration < Minitest::Test
     # puts "Dungeon seed = #{seed}"
     srand( seed )
 
-    @d = Dungeon.new( 3, [1, 1, 1, 1] )
-    @d.generate
+    @d = Dungeon.new
+    @d.generate( 3, [1, 1, 1, 1] )
 
     @avail_rooms_ids = @d.rooms.keys
     @unavail_rooms_ids = Matrix.build( 3 ).to_a.map{ |e| [ e[0]+1, e[1]+1 ] } - @d.rooms.keys
@@ -19,6 +19,12 @@ class DungeonGeneration < Minitest::Test
     @first_avail_room_id = @avail_rooms_ids.first
     @first_unavail_room_id = @unavail_rooms_ids.first
     @first_avail_direction = @d.available_directions.first
+  end
+
+  def test_columns_are_created
+    @d = Dungeon.new
+    @d.generate( 8, [1, 1, 1, 1] )
+    refute_empty @d.rooms.values.select{ |r| !r.decorations.empty? }
   end
 
   def test_generate_a_full_dungeon
