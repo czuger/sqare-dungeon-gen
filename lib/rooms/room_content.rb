@@ -42,6 +42,14 @@ module RoomContent
     generate_monster( lair ) if roll > 1 && roll < 6
   end
 
+  def load_decoration_from_json( decorations_types )
+    decorations_types.each do |decoration_type|
+      if decoration_type == 'four_columns'
+        create_four_columns
+      end
+    end
+  end
+
   def create_decorations
     roll = Hazard.d6
     create_four_columns if roll >= 5

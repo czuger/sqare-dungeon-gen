@@ -8,17 +8,20 @@ puts "Dungeon seed = #{seed}"
 srand( seed )
 
 # d = Dungeon.new( 1, 0 )
-d = Dungeon.new( 3 )
-d.generate_dungeon
+d = Dungeon.new
+d.generate( 5, [ 1, 1, 1, 1 ] )
 
 # d.print_dungeon
-d.draw( '../out/dungeon.jpg' )
+# d.draw( '../out/dungeon.jpg' )
 
 # d.draw_current_room( 'out/room.jpg'  )
 
 # Walker.new( d ).main_loop
 
-p d.available_directions
+# p d.available_directions
 
 j = d.to_json
-Dungeon.from_json(j )
+# puts j
+d = Dungeon.from_json(j )
+puts d.to_json
+d.draw( '../out/dungeon.jpg' )

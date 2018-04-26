@@ -22,9 +22,15 @@ class Room < DrawableObject
     @content_description = room_data['content_description']
     @entry_room = room_data['entry_room']
     @id = room_data['id'] ? room_data['id'] : [ top, left ]
-    @decorations = room_data['decorations'] ? room_data['decorations'] : []
+
+    @decorations = []
+    if room_data['decorations']
+      load_decoration_from_json(room_data['decorations'] )
+    else
+      create_decorations
+    end
+
     create_encounters( lair ) unless room_data['content_description']
-    create_decorations unless room_data['decorations']
   end
 
   def top_left_array
@@ -52,11 +58,14 @@ class Room < DrawableObject
 
   def to_hash( hallways )
     {id: @id, entry_room: @entry_room, content: @content, content_description: @content_description,
-     top: @top, left: @left, decorations: @decorations,
+     top: @top, left: @left, decorations: @decorations.map{ |d| d[:decoration_type] },
      connected_hallways: hallways.connected_hallways( self ).map{ |k, h| { k => h.to_hash } } }
   end
 
   def to_json_hash( hallways )
+    if @decorations.count > 1
+      a = :true
+    end
     h = to_hash( hallways )
     h.delete(:connected_hallways)
     h
