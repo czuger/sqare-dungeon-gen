@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'square-dungeon-gen'
-  s.version     = '1.5.2'
+  s.version     = '1.5.3'
   s.date        = '2018-03-13'
   s.summary     = 'Generate square dungeons'
   s.description = 'A simple gem that generate square dungeons'
@@ -10,8 +10,8 @@ Gem::Specification.new do |s|
   s.homepage    =
       'https://github.com/czuger/sqare-dungeon-gen'
   s.license       = 'MIT'
-  s.add_dependency 'hazard', '~> 1'
+  s.add_dependency 'hazard', '~> 1.2'
   s.add_dependency 'rmagick', '~> 2.16'
-  s.add_dependency 'dd-next-encounters', '~> 2.0', '>= 2.0.2'
+  s.add_dependency 'dd-next-encounters', '~> 3.0', '>= 3.0.1'
   s.required_ruby_version = '>= 2.4.0'
 end
